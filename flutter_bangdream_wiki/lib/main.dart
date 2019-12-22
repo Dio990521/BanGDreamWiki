@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cardPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +15,7 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Text("1"),
+    CardPageContent(),
     Text("2"),
     Text("3"),
     Text("4"),

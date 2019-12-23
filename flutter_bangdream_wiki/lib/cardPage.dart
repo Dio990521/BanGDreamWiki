@@ -1,9 +1,18 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bangdream_wiki/cardClass/Card.dart' as prefix0;
 import 'package:flutter_bangdream_wiki/cardClass/RarityFourCard.dart';
 import 'cardClass/Card.dart';
 
-class CardPageContent extends StatelessWidget{
+class CardPageContent extends StatefulWidget {
+
+  @override
+  _State createState() => new _State();
+}
+
+class _State extends State<CardPageContent>{
+
+  String _option = "";
+
   final cards = [
     new RarityFourCard("https://bestdori.com/assets/jp/thumb/chara/card00000_rip/res005004_after_training.png",
         "Arisa", "Popinpa", "可愛いともだち", "permanent", "cool",
@@ -16,11 +25,44 @@ class CardPageContent extends StatelessWidget{
         "https://bestdori.com/assets/jp/thumb/chara/card00015_rip/res005036_normal.png",
         "2"),
     new RarityFourCard("https://bestdori.com/assets/jp/thumb/chara/card00014_rip/res005035_after_training.png",
-        "Arisa", "Popinpa", "みんながいたから", "permanent", "cool",
+        "Arisa", "Popinpa", "みんながいたから", "permanent", "power",
         "Score Boost 100%", "1",
         "https://bestdori.com/assets/jp/thumb/chara/card00014_rip/res005035_normal.png",
         "2")
   ];
+  
+  Future<Null> cardFilter() async {
+    switch(
+      await showGeneralDialog(
+        context: context,
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionDuration: Duration(milliseconds: 200),
+        pageBuilder: (context, animation1, animation2) {return Text("?");},
+        barrierDismissible: true,
+        barrierLabel: "",
+        transitionBuilder: (context,a1,a2,widget) {
+          return Transform.scale(
+            scale: a1.value,
+            child: Opacity(
+              opacity: a1.value,
+              child: FilterDialog()
+              )
+            );
+          }
+        )
+    ) {
+      case "cool":
+        getOption("cool");
+        break;
+      
+    }
+  }
+
+  void getOption(String option) {
+    setState(() {
+      _option = option;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +75,17 @@ class CardPageContent extends StatelessWidget{
               Expanded(
                 child: TextFormField(
                   decoration: InputDecoration(
+                    icon: Icon(Icons.search),
                       labelText: "输入卡牌/角色名"
                   ),
                 ),
               ),
-              Icon(Icons.filter_list)
+              IconButton(
+                icon: Icon(Icons.filter_list),
+                onPressed: () {
+                  cardFilter();
+                }
+              )
             ],
           ),
           SizedBox(
@@ -123,70 +171,98 @@ class CardTile extends StatelessWidget {
   }
 }
 
-//class ProductItem extends StatelessWidget{
-//  final String title;
-//  final String description;
-//  final String imageURL1;
-//  final String imageURL2;
-//
-//  ProductItem(this.title,this.description,this.imageURL1,[this.imageURL2]);
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    // TODO: implement build
-//    return Container(
-//      padding: EdgeInsets.all(7),
-//      decoration: BoxDecoration(
-//        borderRadius: BorderRadius.circular(10.0),
-//          border: Border.all()
-//      ),
-//      child: Row(
-//        children: <Widget>[
-//          Container(
-//            width: 20,
-//            height: 60,
-//            child: //Image.network("https://i.bandori.party/static/img/rarity/4.png")
-//            Image.asset('assets/images/rarity/4.png'),
-//          ),
-//          Container(
-//            width: 60,
-//            height: 60,
-//            child: Image.network(imageURL1)
-//            ),
-//          Container(
-//            width: 60,
-//            height: 60,
-//            child: Image.network(imageURL2),
-//          ),
-//          Expanded(
-//            child: Container(
-//              //color: Colors.blueAccent,
-//              padding: EdgeInsets.all(10),
-//              child: Column(
-//                children: <Widget>[
-//                  Text(
-//                    title,
-//                    style: TextStyle(fontSize: 15),
-//                    textAlign: TextAlign.left,
-//                  ),
-//                  Text(
-//                    description,
-//                    style: TextStyle(fontSize: 10),
-//                    textAlign: TextAlign.end,
-//
-//                  ),
-//                ],
-//              ),
-//            ),
-//          ),
-//          Container(
-//            width: 25,
-//            //height: 30,
-//            child: Image.asset('assets/images/attribute/cool.png'),
-//            padding: EdgeInsets.only(right: 3),
-//          )
-//        ],
-//      ),
-//    );
-//  }
-//}
+class FilterDialog extends StatefulWidget {
+  @override
+  _FilterDialogState createState() => _FilterDialogState();
+}
+
+class _FilterDialogState extends State<FilterDialog> {
+
+  int group = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return SimpleDialog(
+        title: Text("按选项查找"),
+        children: <Widget>[
+          Text("乐队"),
+          Wrap(
+            children: <Widget>[
+              Padding(
+                child: Image.asset(
+                "assets/images/bandLogo/PoppinParty_logo.png",
+                height: 45,
+                width: 60,
+                ),
+                padding: EdgeInsets.only(left: 10),
+              ),
+
+              Radio(
+                value: 1,
+                groupValue: group,
+                onChanged: (T) {
+                  print(T);
+                  setState(() {
+                    group = T;
+                  });
+                },
+              ),
+              Text("Roselia"),
+              Radio(
+                value: 2,
+                groupValue: group,
+                onChanged: (T) {
+                  print(T);
+                  setState(() {
+                    group = T;
+                  });
+                },
+              ),
+              Text("Paspale"),
+              Radio(
+                value: 3,
+                groupValue: group,
+                onChanged: (T) {
+                  print(T);
+                  setState(() {
+                    group = T;
+                  });
+                },
+              ),
+              Text("Hello Happy World"),
+              Radio(
+                value: 4,
+                groupValue: group,
+                onChanged: (T) {
+                  print(T);
+                  setState(() {
+                    group = T;
+                  });
+                },
+              ),
+              Text("Afterglow"),
+              Radio(
+                value: 5,
+                groupValue: group,
+                onChanged: (T) {
+                  print(T);
+                  setState(() {
+                    group = T;
+                  });
+                },
+              ),
+            ],
+          ),
+
+          Text("属性"),
+          SimpleDialogOption(
+            child: null,
+            onPressed: () {
+              Navigator.pop(context, "cool");
+            },
+          ),
+        ]
+    );
+  }
+}

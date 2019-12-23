@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "686861745809",
+    "firebase_url": "https://bangdreamwiki-26bdb.firebaseio.com",
+    "project_id": "bangdreamwiki-26bdb",
+    "storage_bucket": "bangdreamwiki-26bdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686861745809:android:b9b37568a0ea77085f4930",
+        "android_client_info": {
+          "package_name": "com.dcz.flutter_bangdream_wiki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686861745809-6c34i2t7ptci8830jq3045bu77c80u5n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiDgAf_EnnoCMlqurnqbRqiYctVW4qeaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686861745809-6c34i2t7ptci8830jq3045bu77c80u5n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

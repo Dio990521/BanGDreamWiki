@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bangdream_wiki/musicPage.dart';
 import 'cardPage.dart';
 
 void main() => runApp(MyApp());
@@ -16,7 +17,7 @@ class MyAppState extends State<MyApp> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     CardPageContent(),
-    Text("2"),
+    SongPageContent(),
     Text("3"),
     Text("4"),
     Text("5"),

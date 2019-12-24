@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/cardClass/RarityFourCard.dart';
 import 'cardClass/Card.dart';
+import 'cardFilterDialog.dart';
 
 class CardPageContent extends StatefulWidget {
 
@@ -45,7 +46,7 @@ class _State extends State<CardPageContent>{
             scale: a1.value,
             child: Opacity(
               opacity: a1.value,
-              child: FilterDialog()
+              child: CardFilterDialog()
               )
             );
           }
@@ -171,98 +172,4 @@ class CardTile extends StatelessWidget {
   }
 }
 
-class FilterDialog extends StatefulWidget {
-  @override
-  _FilterDialogState createState() => _FilterDialogState();
-}
 
-class _FilterDialogState extends State<FilterDialog> {
-
-  int group = 1;
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return SimpleDialog(
-        title: Text("按选项查找"),
-        children: <Widget>[
-          Text("乐队"),
-          Wrap(
-            children: <Widget>[
-              Padding(
-                child: Image.asset(
-                "assets/images/bandLogo/PoppinParty_logo.png",
-                height: 45,
-                width: 60,
-                ),
-                padding: EdgeInsets.only(left: 10),
-              ),
-
-              Radio(
-                value: 1,
-                groupValue: group,
-                onChanged: (T) {
-                  print(T);
-                  setState(() {
-                    group = T;
-                  });
-                },
-              ),
-              Text("Roselia"),
-              Radio(
-                value: 2,
-                groupValue: group,
-                onChanged: (T) {
-                  print(T);
-                  setState(() {
-                    group = T;
-                  });
-                },
-              ),
-              Text("Paspale"),
-              Radio(
-                value: 3,
-                groupValue: group,
-                onChanged: (T) {
-                  print(T);
-                  setState(() {
-                    group = T;
-                  });
-                },
-              ),
-              Text("Hello Happy World"),
-              Radio(
-                value: 4,
-                groupValue: group,
-                onChanged: (T) {
-                  print(T);
-                  setState(() {
-                    group = T;
-                  });
-                },
-              ),
-              Text("Afterglow"),
-              Radio(
-                value: 5,
-                groupValue: group,
-                onChanged: (T) {
-                  print(T);
-                  setState(() {
-                    group = T;
-                  });
-                },
-              ),
-            ],
-          ),
-
-          Text("属性"),
-          SimpleDialogOption(
-            child: null,
-            onPressed: () {
-              Navigator.pop(context, "cool");
-            },
-          ),
-        ]
-    );
-  }
-}

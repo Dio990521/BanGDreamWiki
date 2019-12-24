@@ -52,10 +52,10 @@ flutter:
     - assets/images/attribute/happy.png
     - assets/images/attribute/cool.png
     - assets/images/bandLogo/Afterglow_logo.png
-    - assets/images/bandLogo/hellohappyworld.png
-    - assets/images/bandLogo/Pastel_Palettes.png
-    - assets/images/bandLogo/PoppinParty_logo.png
-    - assets/images/bandLogo/roselia_bandlogo.png
+    - assets/images/bandLogo/Hellohappyworld_logo.png
+    - assets/images/bandLogo/Pastelpalettes_logo.png
+    - assets/images/bandLogo/Poppinparty_logo.png
+    - assets/images/bandLogo/Roselia_logo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

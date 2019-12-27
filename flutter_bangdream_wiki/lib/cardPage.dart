@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bangdream_wiki/cardClass/RarityFourCard.dart';
-import 'cardClass/Card.dart';
+import 'Card.dart';
 import 'cardFilterDialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 
 class CardPageContent extends StatefulWidget {
 
@@ -14,23 +16,7 @@ class _State extends State<CardPageContent>{
 
   String _option = "";
 
-  final cards = [
-    new RarityFourCard("https://bestdori.com/assets/jp/thumb/chara/card00000_rip/res005004_after_training.png",
-        "Arisa", "Popinpa", "可愛いともだち", "permanent", "cool",
-        "750 Life Recovery & Score Boost 40%", "1",
-        "https://bestdori.com/assets/jp/thumb/chara/card00000_rip/res005004_normal.png",
-        "2"),
-    new RarityFourCard("https://bestdori.com/assets/jp/thumb/chara/card00015_rip/res005036_after_training.png",
-        "Arisa", "Popinpa", "満開の桜の下で", "permanent", "cool",
-        "Note Boost (L) & Score Boost 40%", "1",
-        "https://bestdori.com/assets/jp/thumb/chara/card00015_rip/res005036_normal.png",
-        "2"),
-    new RarityFourCard("https://bestdori.com/assets/jp/thumb/chara/card00014_rip/res005035_after_training.png",
-        "Arisa", "Popinpa", "みんながいたから", "permanent", "power",
-        "Score Boost 100%", "1",
-        "https://bestdori.com/assets/jp/thumb/chara/card00014_rip/res005035_normal.png",
-        "2")
-  ];
+  List<dynamic> cards = [];
   
   Future<Null> cardFilter() async {
     switch(
@@ -92,16 +78,40 @@ class _State extends State<CardPageContent>{
           SizedBox(
             height: 5,
           ),
-          ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemExtent: 70,
-              itemCount: cards.length,
-              itemBuilder: (BuildContext context, int index) {
-                return CardTile(cards[index]);
-              }
+          Expanded(
+            child: StreamBuilder(
+              stream: Firestore.instance.collection("Card").snapshots(),
+              builder: (context, snapshot) {
 
-          ),
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Center(child: CircularProgressIndicator());
+                  default:
+                    cards = snapshot.data.documents.map((DocumentSnapshot document) {
+                      return new CharacterCard.fromMap(document);
+                    }).toList();
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemExtent: 70,
+                        itemCount: cards.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          CharacterCard card = cards[index];
+                          switch (card.rarity) {
+                            case "1":
+                              return CardTile2(card);
+                            case "2":
+                              return CardTile2(card);
+                            default:
+                              return CardTile(card);
+                          }
+                        }
+                    );
+                }
+              },
+            ),
+          )
+
         ],
       ),
     );
@@ -127,17 +137,82 @@ class CardTile extends StatelessWidget {
           Container(
             width: 20,
             height: 60,
-            child: Image.asset(card.getStarAssetPath()),
+            child: Image.asset(card.starAssetPath),
           ),
           Container(
             width: 60,
             height: 60,
-            child: Image.network(card.imageURL1)
+            child: CachedNetworkImage(
+              imageUrl: card.imageURL1,
+            )
             ),
           Container(
             width: 60,
             height: 60,
-            child: Image.network(card.getImageURL2()),
+            child: CachedNetworkImage(
+              imageUrl: card.imageURL2,
+            ),
+          ),
+          Expanded(
+            child: Container(
+              //color: Colors.blueAccent,
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    card.title,
+                    style: TextStyle(fontSize: 15),
+                    textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    card.skill,
+                    style: TextStyle(fontSize: 10),
+                    textAlign: TextAlign.end,
+
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: 25,
+            //height: 30,
+            child: Image.asset(card.attributeAssetPath),
+            padding: EdgeInsets.only(right: 3),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CardTile2 extends StatelessWidget {
+  final CharacterCard card;
+
+  CardTile2(this.card);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      padding: EdgeInsets.all(7),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all()
+      ),
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: 20,
+            height: 60,
+            child: Image.asset(card.starAssetPath),
+          ),
+          Container(
+              width: 120,
+              height: 60,
+              child: CachedNetworkImage(
+                imageUrl: card.imageURL1,
+              )
           ),
           Expanded(
             child: Container(

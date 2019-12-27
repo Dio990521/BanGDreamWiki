@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bangdream_wiki/musicPage.dart';
+import 'package:flutter_bangdream_wiki/songPage.dart';
 import 'cardPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,8 +20,18 @@ class MyAppState extends State<MyApp> {
     CardPageContent(),
     SongPageContent(),
     Text("3"),
-    Text("4"),
-    Text("5"),
+    RaisedButton(
+      child: Text("Create Song"),
+      onPressed: (){
+        createRecord2();
+      },
+    ),
+    RaisedButton(
+      child: Text('Create Card'),
+      onPressed: () {
+        createRecord();
+      },
+    )
   ];
 
   @override
@@ -76,4 +87,53 @@ class MyAppState extends State<MyApp> {
   }
 }
 
+void createRecord() async {
+  final databaseReference = Firestore.instance;
+
+  for (int i = 00003; i <= 00003; ++i){
+    await databaseReference.collection("Card")
+        .document(i.toString().padLeft(5, '0'))
+        .setData({
+      'character': '',
+      'band': '',
+      'title' : '',
+      'type' : '',
+      'attribute' : '',
+      'skill' : '',
+      'event' : '',
+      'imageURL1' : '',
+      'gacha' : '',
+      'imageURL2' : '',
+      'rarity' : '',
+      'cardImageURL1' : '',
+      'cardImageURL2' : '',
+
+    });
+  }
+}
+
+void createRecord2() async {
+  final databaseReference = Firestore.instance;
+
+  for (int i = 00001; i <= 00001; ++i){
+    await databaseReference.collection("Song")
+        .document(i.toString().padLeft(5, '0'))
+        .setData({
+      'name': '',
+      'band': '',
+      'imageURL' : '',
+      'type' : '',
+      'lyrics' : '',
+      'composer' : '',
+      'arrangement' : '',
+      'length' : '',
+      'id' : '',
+      'difficulty1' : '',
+      'difficulty2' : '',
+      'difficulty3' : '',
+      'difficulty4' : '',
+
+    });
+  }
+}
 

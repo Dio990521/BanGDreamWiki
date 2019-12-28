@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bangdream_wiki/eventPage.dart';
 import 'package:flutter_bangdream_wiki/songPage.dart';
 import 'cardPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,19 +20,30 @@ class MyAppState extends State<MyApp> {
   final List<Widget> _children = [
     CardPageContent(),
     SongPageContent(),
-    Text("3"),
-    RaisedButton(
-      child: Text("Create Song"),
-      onPressed: (){
-        createRecord2();
-      },
-    ),
-    RaisedButton(
-      child: Text('Create Card'),
-      onPressed: () {
-        createRecord();
-      },
+    EventPageContent(),
+    Text("4"),
+    Column(
+      children: <Widget>[
+      RaisedButton(
+        child: Text('Create Card'),
+        onPressed: () {
+          createRecord();
+        },),
+        RaisedButton(
+          child: Text("Create Song"),
+          onPressed: (){
+            createRecord2();
+          },
+        ),
+        RaisedButton(
+          child: Text("Create Event"),
+          onPressed: () {
+            createRecord3();
+          },
+        )
+      ],
     )
+
   ];
 
   @override
@@ -132,6 +144,26 @@ void createRecord2() async {
       'difficulty2' : '',
       'difficulty3' : '',
       'difficulty4' : '',
+
+    });
+  }
+}
+
+void createRecord3() async {
+  final databaseReference = Firestore.instance;
+
+  for (int i = 00001; i <= 00001; ++i){
+    await databaseReference.collection("Event")
+        .document(i.toString().padLeft(5, '0'))
+        .setData({
+      'endDate': '',
+      'startDate': '',
+      'imageURL' : '',
+      'type' : '',
+      'id' : '',
+      'characters' : [],
+      'attribute' : '',
+      'title' : ''
 
     });
   }

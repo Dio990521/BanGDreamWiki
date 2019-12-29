@@ -102,7 +102,7 @@ class MyAppState extends State<MyApp> {
 void createRecord() async {
   final databaseReference = Firestore.instance;
 
-  for (int i = 00003; i <= 00003; ++i){
+  for (int i = 00005; i <= 00010; ++i){
     await databaseReference.collection("Card")
         .document(i.toString().padLeft(5, '0'))
         .setData({
@@ -119,6 +119,7 @@ void createRecord() async {
       'rarity' : '',
       'cardImageURL1' : '',
       'cardImageURL2' : '',
+      'id' : i.toString(),
 
     });
   }

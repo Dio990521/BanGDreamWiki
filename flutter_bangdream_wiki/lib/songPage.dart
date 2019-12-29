@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'Song.dart';
+import 'SongFilterDialog.dart';
 
 class SongPageContent extends StatefulWidget {
 
@@ -14,6 +15,41 @@ class _State extends State<SongPageContent> {
 
   List<dynamic> songs = [];
   List<Widget> songWidgets = [];
+
+  String _option = "";
+
+  Future<Null> songFilter() async {
+    switch(
+    await showGeneralDialog(
+        context: context,
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionDuration: Duration(milliseconds: 200),
+        pageBuilder: (context, animation1, animation2) {return Text("?");},
+        barrierDismissible: true,
+        barrierLabel: "",
+        transitionBuilder: (context,a1,a2,widget) {
+          return Transform.scale(
+              scale: a1.value,
+              child: Opacity(
+                  opacity: a1.value,
+                  child: SongFilterDialog()
+              )
+          );
+        }
+    )
+    ) {
+      case "cool":
+        getOption("cool");
+        break;
+
+    }
+  }
+
+  void getOption(String option) {
+    setState(() {
+      _option = option;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +69,15 @@ class _State extends State<SongPageContent> {
                   ),
                 ),
                 IconButton(
+                  icon: Icon(Icons.arrow_upward),
+                  onPressed: () {
+
+                  },
+                ),
+                IconButton(
                     icon: Icon(Icons.filter_list),
                     onPressed: () {
-                      
+                      songFilter();
                     }
                 )
               ],
@@ -54,18 +96,19 @@ class _State extends State<SongPageContent> {
                           songs = snapshot.data.documents.map((DocumentSnapshot document) {
                             return new Song.fromMap(document);
                           }).toList();
-                          for (Song song in songs) {
-                            songWidgets.add(SongGrid(song));
-                          }
-                          return GridView.count(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              crossAxisCount: 3,
-                              padding: EdgeInsets.all(10),
-                              childAspectRatio: 6.0 / 9.0,
-                              children: songWidgets,
-                          );
-                      }
+                        }
+                        for (Song song in songs) {
+                          songWidgets.add(SongGrid(song));
+                        }
+                       return GridView.count(
+                         scrollDirection: Axis.vertical,
+                         shrinkWrap: true,
+                         crossAxisCount: 3,
+                         padding: EdgeInsets.all(10),
+                         childAspectRatio: 6.0 / 9.0,
+                         children: songWidgets,
+                       );
+
                     })
             )
           ]

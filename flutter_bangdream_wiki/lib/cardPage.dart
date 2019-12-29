@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Card.dart';
 import 'cardFilterDialog.dart';
@@ -68,6 +69,12 @@ class _State extends State<CardPageContent>{
                 ),
               ),
               IconButton(
+                icon: Icon(Icons.arrow_upward),
+                onPressed: () {
+
+                },
+              ),
+              IconButton(
                 icon: Icon(Icons.filter_list),
                 onPressed: () {
                   cardFilter();
@@ -126,29 +133,35 @@ class CardTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      padding: EdgeInsets.all(7),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-          border: Border.all()
-      ),
+    return Card(
+      //padding: EdgeInsets.all(7),
+      //decoration: BoxDecoration(
+        //borderRadius: BorderRadius.circular(10.0),
+          //border: Border.all()
+      //),
       child: Row(
         children: <Widget>[
-          Container(
-            width: 20,
-            height: 60,
-            child: Image.asset(card.starAssetPath),
+          SizedBox(
+            width: 15,
           ),
           Container(
-            width: 60,
-            height: 60,
+            width: 25,
+            height: 50,
+            child: Image.asset(card.starAssetPath),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Container(
+            width: 50,
+            height: 50,
             child: CachedNetworkImage(
               imageUrl: card.imageURL1,
             )
             ),
           Container(
             width: 60,
-            height: 60,
+            height: 50,
             child: CachedNetworkImage(
               imageUrl: card.imageURL2,
             ),
@@ -156,20 +169,23 @@ class CardTile extends StatelessWidget {
           Expanded(
             child: Container(
               //color: Colors.blueAccent,
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.only(left: 1,right: 10,top: 13),
               child: Column(
                 children: <Widget>[
                   Text(
                     card.title,
-                    style: TextStyle(fontSize: 15),
-                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
-                  Text(
-                    card.skill,
-                    style: TextStyle(fontSize: 10),
-                    textAlign: TextAlign.end,
+                  Expanded(
+                    child: Text(
+                      card.skill,
+                      style: TextStyle(fontSize: 10),
+                      textAlign: TextAlign.center,
 
-                  ),
+                    ),
+                  )
+
                 ],
               ),
             ),
@@ -179,6 +195,9 @@ class CardTile extends StatelessWidget {
             //height: 30,
             child: Image.asset(card.attributeAssetPath),
             padding: EdgeInsets.only(right: 3),
+          ),
+          SizedBox(
+            width: 15,
           )
         ],
       ),
@@ -194,22 +213,27 @@ class CardTile2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      padding: EdgeInsets.all(7),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all()
-      ),
+    return Card(
+      //padding: EdgeInsets.all(7),
+      //decoration: BoxDecoration(
+          //borderRadius: BorderRadius.circular(10.0),
+          //border: Border.all()
+      //),
       child: Row(
         children: <Widget>[
+          SizedBox(
+            width: 15,
+          ),
           Container(
-            width: 20,
-            height: 60,
-            child: Image.asset(card.starAssetPath),
+            width: 25,
+            height: 50,
+            child: Image.asset(
+                card.starAssetPath,
+            ),
           ),
           Container(
               width: 120,
-              height: 60,
+              height: 50,
               child: CachedNetworkImage(
                 imageUrl: card.imageURL1,
               )
@@ -217,18 +241,18 @@ class CardTile2 extends StatelessWidget {
           Expanded(
             child: Container(
               //color: Colors.blueAccent,
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.only(left: 0,right: 0,top: 13),
               child: Column(
                 children: <Widget>[
                   Text(
                     card.title,
-                    style: TextStyle(fontSize: 15),
-                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
                   Text(
                     card.skill,
                     style: TextStyle(fontSize: 10),
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.center,
 
                   ),
                 ],
@@ -240,6 +264,9 @@ class CardTile2 extends StatelessWidget {
             //height: 30,
             child: Image.asset(card.attributeAssetPath),
             padding: EdgeInsets.only(right: 3),
+          ),
+          SizedBox(
+            width: 15,
           )
         ],
       ),

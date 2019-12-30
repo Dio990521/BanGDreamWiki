@@ -221,10 +221,40 @@ class _CardFilterDialog extends State<CardFilterDialog> {
               textAlign: TextAlign.center,
             ),
             onPressed: () {
-              Navigator.pop(context, "cool");
+              String options = bandOption(group);
+              options = options +  " " + attributeOption(group2);
+              Navigator.pop(context, options);
             },
           ),
         ]
     );
+  }
+
+  String bandOption(int group) {
+    switch (group) {
+      case 1:
+        return "ppp";
+      case 2:
+        return "rsl";
+      case 3:
+        return "pp";
+      case 4:
+        return "afg";
+      default:
+        return "hhw";
+    }
+  }
+
+  String attributeOption(int group2) {
+    switch (group2){
+      case 1:
+        return "powerful";
+      case 2:
+        return "cool";
+      case 3:
+        return "pure";
+      default:
+        return "happy";
+    }
   }
 }

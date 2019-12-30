@@ -105,4 +105,10 @@ class CharacterCard {
         break;
     }
   }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return title;
+  }
 }

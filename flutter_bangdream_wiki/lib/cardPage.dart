@@ -5,6 +5,7 @@ import 'Card.dart';
 import 'cardFilterDialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:async';
 
 
 class CardPageContent extends StatefulWidget {
@@ -16,8 +17,14 @@ class CardPageContent extends StatefulWidget {
 class _State extends State<CardPageContent>{
 
   String _option = "";
+  IconData arrow = Icons.arrow_upward;
+
+  bool alreadyClicked = false;
+  bool _reverse = false;
+  bool filterClicked = false;
 
   List<dynamic> cards = [];
+  List<dynamic> filteredCards = [];
   
   Future<Null> cardFilter() async {
     switch(
@@ -39,17 +46,88 @@ class _State extends State<CardPageContent>{
           }
         )
     ) {
-      case "cool":
-        getOption("cool");
+      case "ppp cool":
+        getOption("ppp cool");
         break;
-      
+      case "ppp powerful":
+        filteredCards = [];
+        filterClicked = true;
+        getOption("ppp powerful");
+
+        for (CharacterCard card in cards) {
+          if (card.band == "Poppin'Party" && card.attribute == "powerful"){
+            filteredCards.add(card);
+            print("!!!");
+          }
+        }
+
+        cards = filteredCards;
+        print(cards);
+
+        break;
+      case "ppp happy":
+        getOption("ppp happy");
+        break;
+      case "ppp pure":
+        getOption("ppp pure");
+        break;
+      case "rsl cool":
+        getOption("rsl cool");
+        break;
+      case "rsl powerful":
+        getOption("rsl powerful");
+        break;
+      case "rsl happy":
+        getOption("rsl happy");
+        break;
+      case "rsl pure":
+        getOption("rsl pure");
+        break;
+      case "pp cool":
+        getOption("pp cool");
+        break;
+      case "pp powerful":
+        getOption("pp powerful");
+        break;
+      case "pp happy":
+        getOption("pp happy");
+        break;
+      case "pp pure":
+        getOption("pp pure");
+        break;
+      case "hhw cool":
+        getOption("hhw cool");
+        break;
+      case "hhw powerful":
+        getOption("hhw powerful");
+        break;
+      case "hhw happy":
+        getOption("hhw happy");
+        break;
+      case "hhw pure":
+        getOption("hhw pure");
+        break;
+      case "afg cool":
+        getOption("afg cool");
+        break;
+      case "afg powerful":
+        getOption("afg powerful");
+        break;
+      case "afg happy":
+        getOption("afg happy");
+        break;
+      case "afg pure":
+        getOption("afg pure");
+        break;
     }
   }
 
   void getOption(String option) {
     setState(() {
       _option = option;
+      print(_option);
     });
+
   }
 
   @override
@@ -69,9 +147,13 @@ class _State extends State<CardPageContent>{
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.arrow_upward),
+                icon: Icon(alreadyClicked ? Icons.arrow_downward : Icons.arrow_upward),
                 onPressed: () {
 
+                  setState(() {
+                    alreadyClicked = !alreadyClicked;
+                    _reverse = !_reverse;
+                  });
                 },
               ),
               IconButton(
@@ -94,25 +176,43 @@ class _State extends State<CardPageContent>{
                   case ConnectionState.waiting:
                     return Center(child: CircularProgressIndicator());
                   default:
-                    cards = snapshot.data.documents.map((DocumentSnapshot document) {
-                      return new CharacterCard.fromMap(document);
-                    }).toList();
-                    return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemExtent: 70,
-                        itemCount: cards.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          CharacterCard card = cards[index];
-                          switch (card.rarity) {
-                            case "1":
-                              return CardTile2(card);
-                            case "2":
-                              return CardTile2(card);
-                            default:
-                              return CardTile(card);
+                    if (!filterClicked) {
+                      cards = snapshot.data.documents.map((DocumentSnapshot document) {
+                        return new CharacterCard.fromMap(document);
+                      }).toList();
+                    }
+                    return SingleChildScrollView(
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemExtent: 70,
+                          itemCount: cards.length,
+                          reverse: _reverse,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            CharacterCard card = cards[index];
+                            if (filterClicked) {
+                              CharacterCard card = filteredCards[index];
+                              switch (card.rarity) {
+                                case "1":
+                                  return CardTile2(card);
+                                case "2":
+                                  return CardTile2(card);
+                                default:
+                                  return CardTile(card);
+                              }
+                            } else {
+                              switch (card.rarity) {
+                                case "1":
+                                  return CardTile2(card);
+                                case "2":
+                                  return CardTile2(card);
+                                default:
+                                  return CardTile(card);
+                              }
+                            }
                           }
-                        }
+                      ),
                     );
                 }
               },

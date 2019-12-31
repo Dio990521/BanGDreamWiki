@@ -7,8 +7,8 @@ class CardFilterDialog extends StatefulWidget {
 
 class _CardFilterDialog extends State<CardFilterDialog> {
 
-  int group = 1;
-  int group2 = 1;
+  int group = 0;
+  int group2 = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,23 @@ class _CardFilterDialog extends State<CardFilterDialog> {
           ),
         ),
         children: <Widget>[
-          Padding(
-            child: Text(
-              "乐队  " + "----------------------------------------------" ,
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent,),
-              overflow: TextOverflow.visible,
-            ),
-            padding: EdgeInsets.only(left: 10),
+          Row(
+            children: <Widget>[
+              Text(
+                "    乐队  ",
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent,),
+                overflow: TextOverflow.visible,
+              ),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              )
+            ],
           ),
           Wrap(
             children: <Widget>[
@@ -126,13 +136,23 @@ class _CardFilterDialog extends State<CardFilterDialog> {
             ],
           ),
 
-          Padding(
-            child: Text(
-              "属性  " + "----------------------------------------------" ,
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent,),
-              overflow: TextOverflow.visible,
-            ),
-            padding: EdgeInsets.only(left: 10),
+          Row(
+            children: <Widget>[
+              Text(
+                "    属性  ",
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent,),
+                overflow: TextOverflow.visible,
+              ),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              )
+            ],
           ),
           Wrap(
             children: <Widget>[
@@ -211,20 +231,38 @@ class _CardFilterDialog extends State<CardFilterDialog> {
               ),
             ],
           ),
-          SimpleDialogOption(
-            child: Text(
-              "< 确定 >",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              SimpleDialogOption(
+                child: Text(
+                  "< 确定 >",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  String options = bandOption(group);
+                  options = options +  " " + attributeOption(group2);
+                  Navigator.pop(context, options);
+                },
               ),
-              textAlign: TextAlign.center,
-            ),
-            onPressed: () {
-              String options = bandOption(group);
-              options = options +  " " + attributeOption(group2);
-              Navigator.pop(context, options);
-            },
+              SimpleDialogOption(
+                child: Text(
+                  "< 重置 >",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context, "reset");
+                },
+              )
+            ],
           ),
         ]
     );
@@ -232,6 +270,8 @@ class _CardFilterDialog extends State<CardFilterDialog> {
 
   String bandOption(int group) {
     switch (group) {
+      case 0:
+        return "";
       case 1:
         return "ppp";
       case 2:
@@ -247,6 +287,8 @@ class _CardFilterDialog extends State<CardFilterDialog> {
 
   String attributeOption(int group2) {
     switch (group2){
+      case 0:
+        return "";
       case 1:
         return "powerful";
       case 2:

@@ -16,15 +16,22 @@ class CardPageContent extends StatefulWidget {
 
 class _State extends State<CardPageContent>{
 
-  String _option = "";
   IconData arrow = Icons.arrow_upward;
 
   bool alreadyClicked = false;
-  bool _reverse = false;
+  bool _reverse = true;
   bool filterClicked = false;
+  int _cardLength = 0;
 
   List<dynamic> cards = [];
+  List<dynamic> copyOfCards = [];
   List<dynamic> filteredCards = [];
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
   
   Future<Null> cardFilter() async {
     switch(
@@ -47,87 +54,107 @@ class _State extends State<CardPageContent>{
         )
     ) {
       case "ppp cool":
-        getOption("ppp cool");
+        filterOn("Poppin'Party", "cool");
         break;
       case "ppp powerful":
-        filteredCards = [];
-        filterClicked = true;
-        getOption("ppp powerful");
-
-        for (CharacterCard card in cards) {
-          if (card.band == "Poppin'Party" && card.attribute == "powerful"){
-            filteredCards.add(card);
-            print("!!!");
-          }
-        }
-
-        cards = filteredCards;
-        print(cards);
-
+        filterOn("Poppin'Party", "powerful");
         break;
       case "ppp happy":
-        getOption("ppp happy");
+        filterOn("Poppin'Party", "happy");
         break;
       case "ppp pure":
-        getOption("ppp pure");
+        filterOn("Poppin'Party", "pure");
         break;
       case "rsl cool":
-        getOption("rsl cool");
+        filterOn("Poppin'Party", "cool");
         break;
       case "rsl powerful":
-        getOption("rsl powerful");
+        filterOn("Poppin'Party", "powerful");
         break;
       case "rsl happy":
-        getOption("rsl happy");
+        filterOn("Poppin'Party", "happy");
         break;
       case "rsl pure":
-        getOption("rsl pure");
+        filterOn("Poppin'Party", "pure");
         break;
       case "pp cool":
-        getOption("pp cool");
+        filterOn("Pastel*Palettes", "cool");
         break;
       case "pp powerful":
-        getOption("pp powerful");
+        filterOn("Pastel*Palettes", "powerful");
         break;
       case "pp happy":
-        getOption("pp happy");
+        filterOn("Pastel*Palettes", "happy");
         break;
       case "pp pure":
-        getOption("pp pure");
+        filterOn("Pastel*Palettes", "pure");
         break;
       case "hhw cool":
-        getOption("hhw cool");
+        filterOn("Hello, Happy World!", "cool");
         break;
       case "hhw powerful":
-        getOption("hhw powerful");
+        filterOn("Hello, Happy World!", "powerful");
         break;
       case "hhw happy":
-        getOption("hhw happy");
+        filterOn("Hello, Happy World!", "happy");
         break;
       case "hhw pure":
-        getOption("hhw pure");
+        filterOn("Hello, Happy World!", "pure");
         break;
       case "afg cool":
-        getOption("afg cool");
+        filterOn("Afterglow", "cool");
         break;
       case "afg powerful":
-        getOption("afg powerful");
+        filterOn("Afterglow", "powerful");
         break;
       case "afg happy":
-        getOption("afg happy");
+        filterOn("Afterglow", "happy");
         break;
       case "afg pure":
-        getOption("afg pure");
+        filterOn("Afterglow", "pure");
+        break;
+      case "reset":
+        filterClicked = false;
+        setState(() {});
+        break;
+      case "":
         break;
     }
   }
 
-  void getOption(String option) {
-    setState(() {
-      _option = option;
-      print(_option);
-    });
+  void filterOn(String band, String attribute) {
+    filteredCards = [];
+    filterClicked = true;
+    for (CharacterCard card in cards) {
+      if (card.band == band && card.attribute == attribute){
+        filteredCards.add(card);
+      }
+    }
+    setState(() {});
+  }
 
+  void filterSearchResults(String query) {
+    List<dynamic> searchList = List<dynamic>();
+    searchList.addAll(cards);
+    if(query.isNotEmpty) {
+      List<dynamic> dummyListData = List<dynamic>();
+      searchList.forEach((item) {
+        if(item.toString().contains(query)) {
+          dummyListData.add(item);
+        }
+      });
+      print(dummyListData);
+      setState(() {
+        cards.clear();
+        cards.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        cards.clear();
+        cards.addAll(copyOfCards);
+      });
+    }
   }
 
   @override
@@ -139,17 +166,25 @@ class _State extends State<CardPageContent>{
           Row(
             children: <Widget>[
               Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.search),
-                      labelText: "输入卡牌/角色名"
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: TextFormField(
+                    onChanged: (value) {
+                      filterSearchResults(value);
+                    },
+                    style: TextStyle(height: 1),
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        labelText: "输入卡牌/角色名",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20.0)))
+                    ),
                   ),
-                ),
+                )
               ),
               IconButton(
                 icon: Icon(alreadyClicked ? Icons.arrow_downward : Icons.arrow_upward),
                 onPressed: () {
-
                   setState(() {
                     alreadyClicked = !alreadyClicked;
                     _reverse = !_reverse;
@@ -176,40 +211,31 @@ class _State extends State<CardPageContent>{
                   case ConnectionState.waiting:
                     return Center(child: CircularProgressIndicator());
                   default:
-                    if (!filterClicked) {
-                      cards = snapshot.data.documents.map((DocumentSnapshot document) {
-                        return new CharacterCard.fromMap(document);
-                      }).toList();
+                    cards = snapshot.data.documents.map((DocumentSnapshot document) {
+                      return new CharacterCard.fromMap(document);
+                    }).toList();
+                    if (filterClicked) {
+                      _cardLength = filteredCards.length;
+                    } else {
+                      _cardLength = cards.length;
                     }
+                    copyOfCards.addAll(cards);
                     return SingleChildScrollView(
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemExtent: 70,
-                          itemCount: cards.length,
+                          itemCount: _cardLength,
                           reverse: _reverse,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
-                            CharacterCard card = cards[index];
                             if (filterClicked) {
+                              print(filteredCards);
                               CharacterCard card = filteredCards[index];
-                              switch (card.rarity) {
-                                case "1":
-                                  return CardTile2(card);
-                                case "2":
-                                  return CardTile2(card);
-                                default:
-                                  return CardTile(card);
-                              }
+                              return CardTile(card);
                             } else {
-                              switch (card.rarity) {
-                                case "1":
-                                  return CardTile2(card);
-                                case "2":
-                                  return CardTile2(card);
-                                default:
-                                  return CardTile(card);
-                              }
+                              CharacterCard card = cards[index];
+                              return CardTile(card);
                             }
                           }
                       ),
@@ -225,6 +251,7 @@ class _State extends State<CardPageContent>{
   }
 }
 
+
 class CardTile extends StatelessWidget {
   final CharacterCard card;
 
@@ -233,12 +260,67 @@ class CardTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Card(
-      //padding: EdgeInsets.all(7),
-      //decoration: BoxDecoration(
+    if (card.rarity == "1" || card.rarity == "2") {
+      return Card(
+        //padding: EdgeInsets.all(7),
+        //decoration: BoxDecoration(
         //borderRadius: BorderRadius.circular(10.0),
-          //border: Border.all()
-      //),
+        //border: Border.all()
+        //),
+        child: Row(
+          children: <Widget>[
+            SizedBox(
+              width: 15,
+            ),
+            Container(
+              width: 25,
+              height: 50,
+              child: Image.asset(
+                card.starAssetPath,
+              ),
+            ),
+            Container(
+                width: 120,
+                height: 50,
+                child: CachedNetworkImage(
+                  imageUrl: card.imageURL1,
+                )
+            ),
+            Expanded(
+              child: Container(
+                //color: Colors.blueAccent,
+                padding: EdgeInsets.only(left: 0,right: 0,top: 13),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      card.title,
+                      style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      card.skill,
+                      style: TextStyle(fontSize: 10),
+                      textAlign: TextAlign.center,
+
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: 25,
+              //height: 30,
+              child: Image.asset(card.attributeAssetPath),
+              padding: EdgeInsets.only(right: 3),
+            ),
+            SizedBox(
+              width: 15,
+            )
+          ],
+        ),
+      );
+    }
+    return Card(
       child: Row(
         children: <Widget>[
           SizedBox(
@@ -304,74 +386,4 @@ class CardTile extends StatelessWidget {
     );
   }
 }
-
-class CardTile2 extends StatelessWidget {
-  final CharacterCard card;
-
-  CardTile2(this.card);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Card(
-      //padding: EdgeInsets.all(7),
-      //decoration: BoxDecoration(
-          //borderRadius: BorderRadius.circular(10.0),
-          //border: Border.all()
-      //),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 15,
-          ),
-          Container(
-            width: 25,
-            height: 50,
-            child: Image.asset(
-                card.starAssetPath,
-            ),
-          ),
-          Container(
-              width: 120,
-              height: 50,
-              child: CachedNetworkImage(
-                imageUrl: card.imageURL1,
-              )
-          ),
-          Expanded(
-            child: Container(
-              //color: Colors.blueAccent,
-              padding: EdgeInsets.only(left: 0,right: 0,top: 13),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    card.title,
-                    style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    card.skill,
-                    style: TextStyle(fontSize: 10),
-                    textAlign: TextAlign.center,
-
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            width: 25,
-            //height: 30,
-            child: Image.asset(card.attributeAssetPath),
-            padding: EdgeInsets.only(right: 3),
-          ),
-          SizedBox(
-            width: 15,
-          )
-        ],
-      ),
-    );
-  }
-}
-
 

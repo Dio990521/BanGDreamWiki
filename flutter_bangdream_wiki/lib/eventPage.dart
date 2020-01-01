@@ -15,6 +15,11 @@ class EventPageContent extends StatefulWidget {
 class _State extends State<EventPageContent>{
 
   List<dynamic> events = [];
+  bool arrowClicked = false;
+  bool searchFilter = false;
+  bool _reverse = true;
+  bool filterClicked = false;
+  int _eventsLength = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +31,26 @@ class _State extends State<EventPageContent>{
           Row(
             children: <Widget>[
               Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.search),
-                      labelText: "输入活动名"
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: TextFormField(
+                    style: TextStyle(height: 1),
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                        prefixIcon: Icon(Icons.search),
+                        labelText: "输入活动名"
+                    ),
                   ),
-                ),
+                )
               ),
               IconButton(
-                  icon: Icon(Icons.arrow_upward),
+                  icon: Icon(arrowClicked ? Icons.arrow_downward : Icons.arrow_upward),
                   onPressed: () {
-
+                    setState(() {
+                      arrowClicked = !arrowClicked;
+                      _reverse = !_reverse;
+                    });
                   }
               )
             ],
@@ -56,15 +70,20 @@ class _State extends State<EventPageContent>{
                     events = snapshot.data.documents.map((DocumentSnapshot document) {
                       return new Event.fromMap(document);
                     }).toList();
-                    return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemExtent: 160,
-                        itemCount: events.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          Event event = events[index];
-                          return EventTile(event);
-                        }
+                    _eventsLength = events.length;
+                    return SingleChildScrollView(
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemExtent: 160,
+                          itemCount: _eventsLength,
+                          reverse: _reverse,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            Event event = events[index];
+                            return EventTile(event);
+                          }
+                      ),
                     );
                 }
               },

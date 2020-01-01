@@ -21,13 +21,23 @@ class _SongFilterDialog extends State<SongFilterDialog> {
     ),
     ),
     children: <Widget>[
-      Padding(
-        child: Text(
-          "乐队  " + "----------------------------------------------" ,
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent,),
-          overflow: TextOverflow.visible,
-        ),
-        padding: EdgeInsets.only(left: 10),
+      Row(
+        children: <Widget>[
+          Text(
+            "    乐队  ",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent,),
+            overflow: TextOverflow.visible,
+          ),
+          Expanded(
+            child: Container(
+              height: 1,
+              color: Colors.blueAccent,
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          )
+        ],
       ),
       Wrap(
         children: <Widget>[
@@ -125,20 +135,56 @@ class _SongFilterDialog extends State<SongFilterDialog> {
 
         ],
       ),
-      SimpleDialogOption(
-        child: Text(
-          "< 确定 >",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.blueAccent,
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          SimpleDialogOption(
+            child: Text(
+              "< 确定 >",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.blueAccent,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            onPressed: () {
+              String options = bandOption(group);
+              Navigator.pop(context, options);
+            },
           ),
-          textAlign: TextAlign.center,
-        ),
-        onPressed: () {
-          Navigator.pop(context, "cool");
-        },
+          SimpleDialogOption(
+            child: Text(
+              "< 重置 >",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.blueAccent,
+              ),
+            ),
+            onPressed: () {
+              Navigator.pop(context, "reset");
+            },
+          )
+        ],
       ),
     ]
     );
+  }
+
+  String bandOption(int group) {
+    switch (group) {
+      case 0:
+        return "";
+      case 1:
+        return "ppp";
+      case 2:
+        return "rsl";
+      case 3:
+        return "pp";
+      case 4:
+        return "afg";
+      default:
+        return "hhw";
+    }
   }
 }

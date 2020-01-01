@@ -13,10 +13,15 @@ class SongPageContent extends StatefulWidget {
 
 class _State extends State<SongPageContent> {
 
-  List<dynamic> songs = [];
-  List<Widget> songWidgets = [];
+  List<dynamic> songs = List<dynamic>();
+  List<Widget> songWidgets = List<Widget>();
+  List<dynamic> filteredSongs = List<dynamic>();
+  List<dynamic> searchedListData = List<dynamic>();
 
-  String _option = "";
+  bool arrowClicked = false;
+  bool searchFilter = false;
+  bool _reverse = true;
+  bool filterClicked = false;
 
   Future<Null> songFilter() async {
     switch(
@@ -38,17 +43,57 @@ class _State extends State<SongPageContent> {
         }
     )
     ) {
-      case "cool":
-        getOption("cool");
+      case "ppp":
+        filterOn("Poppin'Party");
+        break;
+      case "afg":
+        filterOn("Afterglow");
+        break;
+      case "hhw":
+        filterOn("Hello, Happy World!");
+        break;
+      case "rsl":
+        filterOn("Roselia");
+        break;
+      case "pp":
+        filterOn("Pastel*Palettes");
         break;
 
     }
   }
 
-  void getOption(String option) {
-    setState(() {
-      _option = option;
-    });
+  void filterOn(String band) {
+    filteredSongs = [];
+    filterClicked = true;
+    searchFilter = false;
+    for (Song song in songs) {
+      if (song.band == band) {
+          filteredSongs.add(song);
+      }
+    }
+    setState(() {});
+  }
+
+  void filterSearchResults(String query) {
+    filterClicked = false;
+    searchFilter = true;
+    List<dynamic> searchList = List<dynamic>();
+    searchList.addAll(songs);
+    if(query.isNotEmpty) {
+      searchedListData.clear();
+      searchList.forEach((item) {
+        if(item.toString().contains(query)) {
+          searchedListData.add(item);
+        }
+      });
+      print(searchedListData);
+      setState(() {});
+      return;
+    } else {
+      setState(() {
+        searchFilter = false;
+      });
+    }
   }
 
   @override
@@ -61,17 +106,29 @@ class _State extends State<SongPageContent> {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.search),
-                        labelText: "输入歌曲名"
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: TextFormField(
+                      onChanged: (value) {
+                        filterSearchResults(value);
+                      },
+                      style: TextStyle(height: 1),
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.search),
+                          labelText: "输入歌曲名",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20.0)))
+                      ),
                     ),
-                  ),
+                  )
                 ),
                 IconButton(
-                  icon: Icon(Icons.arrow_upward),
+                  icon: Icon(arrowClicked ? Icons.arrow_downward : Icons.arrow_upward),
                   onPressed: () {
-
+                    setState(() {
+                      arrowClicked = !arrowClicked;
+                      _reverse = !_reverse;
+                    });
                   },
                 ),
                 IconButton(
@@ -97,18 +154,22 @@ class _State extends State<SongPageContent> {
                             return new Song.fromMap(document);
                           }).toList();
                         }
+                        songWidgets = [];
                         for (Song song in songs) {
                           songWidgets.add(SongGrid(song));
                         }
-                       return GridView.count(
-                         scrollDirection: Axis.vertical,
-                         shrinkWrap: true,
-                         crossAxisCount: 3,
-                         padding: EdgeInsets.all(10),
-                         childAspectRatio: 6.0 / 9.0,
-                         children: songWidgets,
+                       return SingleChildScrollView(
+                         child: GridView.count(
+                           scrollDirection: Axis.vertical,
+                           shrinkWrap: true,
+                           crossAxisCount: 3,
+                           physics: NeverScrollableScrollPhysics(),
+                           reverse: _reverse,
+                           padding: EdgeInsets.all(10),
+                           childAspectRatio: 6.0 / 9.0,
+                           children: songWidgets,
+                         ),
                        );
-
                     })
             )
           ]

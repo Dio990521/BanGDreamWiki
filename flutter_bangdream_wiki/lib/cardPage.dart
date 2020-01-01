@@ -18,21 +18,16 @@ class _State extends State<CardPageContent>{
 
   IconData arrow = Icons.arrow_upward;
 
-  bool alreadyClicked = false;
+  bool arrowClicked = false;
+  bool searchFilter = false;
   bool _reverse = true;
   bool filterClicked = false;
-  int _cardLength = 0;
+  int _cardsLength = 0;
 
-  List<dynamic> cards = [];
-  List<dynamic> copyOfCards = [];
-  List<dynamic> filteredCards = [];
+  List<dynamic> cards = List<dynamic>();
+  List<dynamic> filteredCards = List<dynamic>();
+  List<dynamic> searchedListData = List<dynamic>();
 
-  @override
-  void initState() {
-
-    super.initState();
-  }
-  
   Future<Null> cardFilter() async {
     switch(
       await showGeneralDialog(
@@ -66,16 +61,16 @@ class _State extends State<CardPageContent>{
         filterOn("Poppin'Party", "pure");
         break;
       case "rsl cool":
-        filterOn("Poppin'Party", "cool");
+        filterOn("Roselia", "cool");
         break;
       case "rsl powerful":
-        filterOn("Poppin'Party", "powerful");
+        filterOn("Roselia", "powerful");
         break;
       case "rsl happy":
-        filterOn("Poppin'Party", "happy");
+        filterOn("Roselia", "happy");
         break;
       case "rsl pure":
-        filterOn("Poppin'Party", "pure");
+        filterOn("Roselia", "pure");
         break;
       case "pp cool":
         filterOn("Pastel*Palettes", "cool");
@@ -113,6 +108,33 @@ class _State extends State<CardPageContent>{
       case "afg pure":
         filterOn("Afterglow", "pure");
         break;
+      case "ppp ":
+        filterOn("Poppin'Party", "");
+        break;
+      case "afg ":
+        filterOn("Afterglow", "");
+        break;
+      case "hhw ":
+        filterOn("Hello, Happy World!", "");
+        break;
+      case "rsl ":
+        filterOn("Roselia", "");
+        break;
+      case "pp ":
+        filterOn("Pastel*Palettes", "");
+        break;
+      case " powerful":
+        filterOn("", "powerful");
+        break;
+      case " pure":
+        filterOn("", "pure");
+        break;
+      case " cool":
+        filterOn("", "cool");
+        break;
+      case " happy":
+        filterOn("", "happy");
+        break;
       case "reset":
         filterClicked = false;
         setState(() {});
@@ -125,8 +147,17 @@ class _State extends State<CardPageContent>{
   void filterOn(String band, String attribute) {
     filteredCards = [];
     filterClicked = true;
+    searchFilter = false;
     for (CharacterCard card in cards) {
-      if (card.band == band && card.attribute == attribute){
+      if (attribute == "") {
+        if (card.band == band) {
+          filteredCards.add(card);
+        }
+      } else if (band == "") {
+        if (card.attribute == attribute) {
+          filteredCards.add(card);
+        }
+      } else if (card.band == band && card.attribute == attribute){
         filteredCards.add(card);
       }
     }
@@ -134,25 +165,23 @@ class _State extends State<CardPageContent>{
   }
 
   void filterSearchResults(String query) {
+    filterClicked = false;
+    searchFilter = true;
     List<dynamic> searchList = List<dynamic>();
     searchList.addAll(cards);
     if(query.isNotEmpty) {
-      List<dynamic> dummyListData = List<dynamic>();
+      searchedListData.clear();
       searchList.forEach((item) {
         if(item.toString().contains(query)) {
-          dummyListData.add(item);
+          searchedListData.add(item);
         }
       });
-      print(dummyListData);
-      setState(() {
-        cards.clear();
-        cards.addAll(dummyListData);
-      });
+      print(searchedListData);
+      setState(() {});
       return;
     } else {
       setState(() {
-        cards.clear();
-        cards.addAll(copyOfCards);
+        searchFilter = false;
       });
     }
   }
@@ -183,10 +212,10 @@ class _State extends State<CardPageContent>{
                 )
               ),
               IconButton(
-                icon: Icon(alreadyClicked ? Icons.arrow_downward : Icons.arrow_upward),
+                icon: Icon(arrowClicked ? Icons.arrow_downward : Icons.arrow_upward),
                 onPressed: () {
                   setState(() {
-                    alreadyClicked = !alreadyClicked;
+                    arrowClicked = !arrowClicked;
                     _reverse = !_reverse;
                   });
                 },
@@ -214,18 +243,19 @@ class _State extends State<CardPageContent>{
                     cards = snapshot.data.documents.map((DocumentSnapshot document) {
                       return new CharacterCard.fromMap(document);
                     }).toList();
+                    _cardsLength = cards.length;
                     if (filterClicked) {
-                      _cardLength = filteredCards.length;
-                    } else {
-                      _cardLength = cards.length;
+                      _cardsLength = filteredCards.length;
                     }
-                    copyOfCards.addAll(cards);
+                    if (searchFilter){
+                      _cardsLength = searchedListData.length;
+                    }
                     return SingleChildScrollView(
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemExtent: 70,
-                          itemCount: _cardLength,
+                          itemCount: _cardsLength,
                           reverse: _reverse,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
@@ -233,10 +263,13 @@ class _State extends State<CardPageContent>{
                               print(filteredCards);
                               CharacterCard card = filteredCards[index];
                               return CardTile(card);
-                            } else {
-                              CharacterCard card = cards[index];
+                            }
+                            if (searchFilter){
+                              CharacterCard card = searchedListData[index];
                               return CardTile(card);
                             }
+                            CharacterCard card = cards[index];
+                            return CardTile(card);
                           }
                       ),
                     );
@@ -262,11 +295,6 @@ class CardTile extends StatelessWidget {
     // TODO: implement build
     if (card.rarity == "1" || card.rarity == "2") {
       return Card(
-        //padding: EdgeInsets.all(7),
-        //decoration: BoxDecoration(
-        //borderRadius: BorderRadius.circular(10.0),
-        //border: Border.all()
-        //),
         child: Row(
           children: <Widget>[
             SizedBox(

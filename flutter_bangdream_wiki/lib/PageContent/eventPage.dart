@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'Card.dart';
-import 'cardFilterDialog.dart';
+import '../ClassFiles/Card.dart';
+import '../cardFilterDialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'Event.dart';
+import '../ClassFiles/Event.dart';
 
 
 class EventPageContent extends StatefulWidget {
@@ -14,12 +14,36 @@ class EventPageContent extends StatefulWidget {
 
 class _State extends State<EventPageContent>{
 
-  List<dynamic> events = [];
+  List<dynamic> events = List<dynamic>();
+  List<dynamic> searchedListData = List<dynamic>();
+
   bool arrowClicked = false;
   bool searchFilter = false;
   bool _reverse = true;
   bool filterClicked = false;
   int _eventsLength = 0;
+
+  void filterSearchResults(String query) {
+    filterClicked = false;
+    searchFilter = true;
+    List<dynamic> searchList = List<dynamic>();
+    searchList.addAll(events);
+    if(query.isNotEmpty) {
+      searchedListData.clear();
+      searchList.forEach((item) {
+        if(item.toString().contains(query)) {
+          searchedListData.add(item);
+        }
+      });
+      print(searchedListData);
+      setState(() {});
+      return;
+    } else {
+      setState(() {
+        searchFilter = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +58,9 @@ class _State extends State<EventPageContent>{
                 child: Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: TextFormField(
+                    onChanged: (value) {
+                      filterSearchResults(value);
+                    },
                     style: TextStyle(height: 1),
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -71,6 +98,9 @@ class _State extends State<EventPageContent>{
                       return new Event.fromMap(document);
                     }).toList();
                     _eventsLength = events.length;
+                    if (searchFilter){
+                      _eventsLength = searchedListData.length;
+                    }
                     return SingleChildScrollView(
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
@@ -80,6 +110,10 @@ class _State extends State<EventPageContent>{
                           reverse: _reverse,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
+                            if(searchFilter) {
+                              Event event = searchedListData[index];
+                              return EventTile(event);
+                            }
                             Event event = events[index];
                             return EventTile(event);
                           }

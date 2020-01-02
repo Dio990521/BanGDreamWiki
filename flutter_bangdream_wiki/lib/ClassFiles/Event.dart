@@ -25,4 +25,10 @@ class Event {
 
   }
 
+  @override
+  String toString() {
+    // TODO: implement toString
+    return title;
+  }
+
 }

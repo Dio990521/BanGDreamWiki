@@ -7,7 +7,8 @@ class SongFilterDialog extends StatefulWidget {
 
 class _SongFilterDialog extends State<SongFilterDialog> {
 
-  int group = 1;
+  int group = 0;
+  int group2 = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +133,52 @@ class _SongFilterDialog extends State<SongFilterDialog> {
               });
             },
           ),
-
+          Row(
+            children: <Widget>[
+              Text(
+                "    类型  ",
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent,),
+                overflow: TextOverflow.visible,
+              ),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              )
+            ],
+          ),
+          Padding(
+            child: Text("原创曲",style: TextStyle(fontWeight: FontWeight.bold),),
+            padding: EdgeInsets.only(left: 14,top: 12),
+          ),
+          Radio(
+            value: 1,
+            groupValue: group2,
+            onChanged: (T) {
+              print(T);
+              setState(() {
+                group2 = T;
+              });
+            },
+          ),
+          Padding(
+            child: Text("翻唱曲",style: TextStyle(fontWeight: FontWeight.bold),),
+            padding: EdgeInsets.only(left: 4,top: 12,right: 4),
+          ),
+          Radio(
+            value: 2,
+            groupValue: group2,
+            onChanged: (T) {
+              print(T);
+              setState(() {
+                group2 = T;
+              });
+            },
+          ),
         ],
       ),
       Row(
@@ -149,6 +195,8 @@ class _SongFilterDialog extends State<SongFilterDialog> {
             ),
             onPressed: () {
               String options = bandOption(group);
+              options = options +  " " + typeOption(group2);
+              print(options);
               Navigator.pop(context, options);
             },
           ),
@@ -185,6 +233,17 @@ class _SongFilterDialog extends State<SongFilterDialog> {
         return "afg";
       default:
         return "hhw";
+    }
+  }
+
+  String typeOption(int group2) {
+    switch (group2) {
+      case 0:
+        return "";
+      case 1:
+        return "original";
+      default:
+        return "cover";
     }
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bangdream_wiki/eventPage.dart';
-import 'package:flutter_bangdream_wiki/songPage.dart';
-import 'cardPage.dart';
+import 'package:flutter_bangdream_wiki/PageContent/eventPage.dart';
+import 'package:flutter_bangdream_wiki/PageContent/otherPage.dart';
+import 'package:flutter_bangdream_wiki/PageContent/songPage.dart';
+import 'PageContent/cardPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +22,7 @@ class MyAppState extends State<MyApp> {
     CardPageContent(),
     SongPageContent(),
     EventPageContent(),
-    Text("4"),
+    OtherPageContent(),
     Column(
       children: <Widget>[
       RaisedButton(

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'Song.dart';
-import 'SongFilterDialog.dart';
+import '../ClassFiles/Song.dart';
+import '../SongFilterDialog.dart';
 
 class SongPageContent extends StatefulWidget {
 
@@ -43,32 +43,81 @@ class _State extends State<SongPageContent> {
         }
     )
     ) {
-      case "ppp":
-        filterOn("Poppin'Party");
+      case "ppp ":
+        filterOn("Poppin'Party","");
         break;
-      case "afg":
-        filterOn("Afterglow");
+      case "afg ":
+        filterOn("Afterglow","");
         break;
-      case "hhw":
-        filterOn("Hello, Happy World!");
+      case "hhw ":
+        filterOn("Hello, Happy World!","");
         break;
-      case "rsl":
-        filterOn("Roselia");
+      case "rsl ":
+        filterOn("Roselia","");
         break;
-      case "pp":
-        filterOn("Pastel*Palettes");
+      case "pp ":
+        filterOn("Pastel*Palettes","");
         break;
-
+      case " original":
+        filterOn("","原创曲");
+        break;
+      case " cover":
+        filterOn("", "翻唱曲");
+        break;
+      case "ppp original":
+        filterOn("Poppin'Party","原创曲");
+        break;
+      case "afg original":
+        filterOn("Afterglow","原创曲");
+        break;
+      case "hhw original":
+        filterOn("Hello, Happy World!","原创曲");
+        break;
+      case "rsl original":
+        filterOn("Roselia","原创曲");
+        break;
+      case "pp original":
+        filterOn("Pastel*Palettes","原创曲");
+        break;
+      case "ppp cover":
+        filterOn("Poppin'Party","翻唱曲");
+        break;
+      case "afg cover":
+        filterOn("Afterglow","翻唱曲");
+        break;
+      case "hhw cover":
+        filterOn("Hello, Happy World!","翻唱曲");
+        break;
+      case "rsl cover":
+        filterOn("Roselia","翻唱曲");
+        break;
+      case "pp cover":
+        filterOn("Pastel*Palettes","翻唱曲");
+        break;
+      case "reset":
+        filterClicked = false;
+        setState(() {});
+        break;
+      case "":
+        break;
     }
   }
 
-  void filterOn(String band) {
-    filteredSongs = [];
+  void filterOn(String band, String type) {
+    filteredSongs.clear();
     filterClicked = true;
     searchFilter = false;
     for (Song song in songs) {
-      if (song.band == band) {
+      if (type == "") {
+        if (song.band == band) {
           filteredSongs.add(song);
+        }
+      } else if (band == "") {
+        if (song.type == type) {
+          filteredSongs.add(song);
+        }
+      } else if (song.band == band && song.type == type){
+        filteredSongs.add(song);
       }
     }
     setState(() {});
@@ -154,10 +203,20 @@ class _State extends State<SongPageContent> {
                             return new Song.fromMap(document);
                           }).toList();
                         }
-                        songWidgets = [];
+                        songWidgets.clear();
+                      if (filterClicked) {
+                        for (Song song in filteredSongs) {
+                          songWidgets.add(SongGrid(song));
+                        }
+                      } else if (searchFilter){
+                        for (Song song in searchedListData) {
+                          songWidgets.add(SongGrid(song));
+                        }
+                      } else {
                         for (Song song in songs) {
                           songWidgets.add(SongGrid(song));
                         }
+                      }
                        return SingleChildScrollView(
                          child: GridView.count(
                            scrollDirection: Axis.vertical,

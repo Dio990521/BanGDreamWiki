@@ -26,6 +26,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   cloud_firestore: ^0.13.0+1
   cached_network_image: 2.0.0-rc
+  flutter_svg: ^0.15.0
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +49,7 @@ flutter:
     - assets/images/rarity/2.png
     - assets/images/rarity/3.png
     - assets/images/rarity/4.png
-    - assets/images/attribute/power.png
+    - assets/images/attribute/powerful.png
     - assets/images/attribute/pure.png
     - assets/images/attribute/happy.png
     - assets/images/attribute/cool.png
@@ -57,6 +58,36 @@ flutter:
     - assets/images/bandLogo/Pastelpalettes_logo.png
     - assets/images/bandLogo/Poppinparty_logo.png
     - assets/images/bandLogo/Roselia_logo.png
+    - assets/images/icons/Afterglow.svg
+    - assets/images/icons/Hello, Happy World!.svg
+    - assets/images/icons/Pastel Palettes.svg
+    - assets/images/icons/Poppin'Party.svg
+    - assets/images/icons/Roselia.svg
+    - assets/images/icons/上原绯玛丽.png
+    - assets\images\icons\丸山彩.png
+    - assets/images/icons/今井莉莎.png
+    - assets/images/icons/冰川日菜.png
+    - assets/images/icons/冰川纱夜.png
+    - assets/images/icons/凑友希那.png
+    - assets/images/icons/北泽育美.png
+    - assets/images/icons/大和麻弥.png
+    - assets/images/icons/奥泽美咲.png
+    - assets/images/icons/宇田川亚子.png
+    - assets/images/icons/宇田川巴.png
+    - assets/images/icons/山吹沙绫.png
+    - assets/images/icons/市谷有咲.png
+    - assets/images/icons/弦卷心.png
+    - assets/images/icons/户山香澄.png
+    - assets/images/icons/松原花音.png
+    - assets/images/icons/濑田薰.png
+    - assets/images/icons/牛込里美.png
+    - assets/images/icons/白金燐子.png
+    - assets/images/icons/白鹭千圣.png
+    - assets/images/icons/美竹兰.png
+    - assets/images/icons/羽泽鸫.png
+    - assets/images/icons/花园多惠.png
+    - assets/images/icons/若宫伊芙.png
+    - assets/images/icons/青叶摩卡.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

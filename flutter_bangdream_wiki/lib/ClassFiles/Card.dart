@@ -50,7 +50,7 @@ class CharacterCard {
     }
     switch (attribute) {
       case "powerful":
-        this.attributeAssetPath = "assets/images/attribute/power.png";
+        this.attributeAssetPath = "assets/images/attribute/powerful.png";
         break;
       case "cool":
         this.attributeAssetPath = "assets/images/attribute/cool.png";
@@ -92,7 +92,7 @@ class CharacterCard {
     }
     switch (attribute) {
       case "power":
-        this.attributeAssetPath = "assets/images/attribute/power.png";
+        this.attributeAssetPath = "assets/images/attribute/powerful.png";
         break;
       case "cool":
         this.attributeAssetPath = "assets/images/attribute/cool.png";

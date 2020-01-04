@@ -24,7 +24,7 @@ class Song {
     this.composer = map["composer"];
     this.arrangement = map["arrangement"];
     this.band = map["band"];
-    this.length = map["band"];
+    this.length = map["length"];
     this.id = int.parse(map["id"]);
     this.difficulty1 = map["difficulty1"];
     this.difficulty2 = map["difficulty2"];

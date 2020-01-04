@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bangdream_wiki/PageContent/songDetailedPage.dart';
 import '../ClassFiles/Song.dart';
 import '../SongFilterDialog.dart';
 
@@ -56,7 +57,7 @@ class _State extends State<SongPageContent> {
         filterOn("Roselia","");
         break;
       case "pp ":
-        filterOn("Pastel*Palettes","");
+        filterOn("Pastel Palettes","");
         break;
       case " original":
         filterOn("","原创曲");
@@ -77,7 +78,7 @@ class _State extends State<SongPageContent> {
         filterOn("Roselia","原创曲");
         break;
       case "pp original":
-        filterOn("Pastel*Palettes","原创曲");
+        filterOn("Pastel Palettes","原创曲");
         break;
       case "ppp cover":
         filterOn("Poppin'Party","翻唱曲");
@@ -92,7 +93,7 @@ class _State extends State<SongPageContent> {
         filterOn("Roselia","翻唱曲");
         break;
       case "pp cover":
-        filterOn("Pastel*Palettes","翻唱曲");
+        filterOn("Pastel Palettes","翻唱曲");
         break;
       case "reset":
         filterClicked = false;
@@ -246,34 +247,44 @@ class SongGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          CachedNetworkImage(
-            fit: BoxFit.fill,
-            imageUrl: song.imageURL,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SongDetailedPage(song: song),
           ),
-          Expanded(
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 10),
-                  Text(
-                    song.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              ),
+        );
+      },
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: song.imageURL,
             ),
-          )
-        ],
+            Expanded(
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 10),
+                    Text(
+                      song.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

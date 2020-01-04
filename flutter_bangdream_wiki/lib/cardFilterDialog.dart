@@ -158,7 +158,7 @@ class _CardFilterDialog extends State<CardFilterDialog> {
             children: <Widget>[
               Padding(
                 child: Image.asset(
-                  "assets/images/attribute/power.png",
+                  "assets/images/attribute/powerful.png",
                   height: 20,
                   width: 40,
                 ),

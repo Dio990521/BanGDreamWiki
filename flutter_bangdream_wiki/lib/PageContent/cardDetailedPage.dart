@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Card.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CardDetailedPage extends StatefulWidget {
 
@@ -39,7 +40,8 @@ class _State extends State<CardDetailedPage>{
       ),
       body: Column(
         children: <Widget>[
-          Expanded(
+          Container(
+            height: 250,
             child: PageView.builder(
                 controller: controller,
                 itemCount: images.length,
@@ -48,9 +50,88 @@ class _State extends State<CardDetailedPage>{
                 }
             ),
           ),
-          Container(
-            height: 400,
-            color: Colors.blueAccent,
+          Expanded(
+            child: ListView(
+              children: <Widget>[
+                ListTile(
+                  title: Text("标题",style: TextStyle(fontWeight: FontWeight.bold),),
+                  trailing: Text(widget.card.title, style: TextStyle(fontSize: 15),),
+                ),
+                Divider(),
+                ListTile(
+                  title: Text("种类",style: TextStyle(fontWeight: FontWeight.bold),),
+                  trailing: Text(widget.card.type, style: TextStyle(fontSize: 15),),
+                ),
+                Divider(),
+                ListTile(
+                  title: Text("角色",style: TextStyle(fontWeight: FontWeight.bold,),),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(widget.card.character, style: TextStyle(fontSize: 15),),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Image.asset("assets/images/icons/" + widget.card.character + ".png",height: 40,)
+                    ],
+                  )
+                ),
+                Divider(),
+                ListTile(
+                  title: Text("乐团",style: TextStyle(fontWeight: FontWeight.bold),),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(widget.card.band, style: TextStyle(fontSize: 15),),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      SvgPicture.asset("assets/images/icons/" + widget.card.band + ".svg",height: 40,)
+                    ],
+                  )
+                ),
+                Divider(),
+                ListTile(
+                  title: Text("属性",style: TextStyle(fontWeight: FontWeight.bold),),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(widget.card.attribute.toUpperCase(), style: TextStyle(fontSize: 15),),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 7),
+                        child: Image.asset("assets/images/attribute/" + widget.card.attribute + ".png"),
+                      )
+                    ],
+                  )
+                ),
+                Divider(),
+                ListTile(
+                  title: Text("稀有度",style: TextStyle(fontWeight: FontWeight.bold),),
+                  trailing: Container(
+                    width: 70,
+                    child: RotationTransition(
+                        turns: AlwaysStoppedAnimation(270 / 360),
+                        child: Image.asset("assets/images/rarity/" + widget.card.rarity + ".png")
+                    ),
+                  )
+                ),
+                Divider(),
+                ListTile(
+                  title: Text("技能",style: TextStyle(fontWeight: FontWeight.bold),),
+                  trailing: Text(widget.card.skill, style: TextStyle(fontSize: 15),),
+                ),
+                Divider(),
+                ListTile(
+                  title: Text("技能"),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+
+
+              ],
+            ),
           )
 
         ],

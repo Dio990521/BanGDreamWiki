@@ -4,6 +4,7 @@ import '../cardFilterDialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../ClassFiles/Event.dart';
+import 'eventDetailedPage.dart';
 
 
 class EventPageContent extends StatefulWidget {
@@ -139,19 +140,29 @@ class EventTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Card(
-      child: Column(
-        children: <Widget>[
-          CachedNetworkImage(
-            //height: 50,
-            fit: BoxFit.fill,
-            imageUrl: event.imageURL,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EventDetailedPage(event: event),
           ),
-          Text(
-            event.title,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          )
-        ],
+        );
+      },
+      child: Card(
+        child: Column(
+          children: <Widget>[
+            CachedNetworkImage(
+              //height: 50,
+              fit: BoxFit.fill,
+              imageUrl: event.imageURL,
+            ),
+            Text(
+              event.title,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
       ),
     );
   }

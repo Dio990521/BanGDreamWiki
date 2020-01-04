@@ -74,16 +74,16 @@ class _State extends State<CardPageContent>{
         filterOn("Roselia", "pure");
         break;
       case "pp cool":
-        filterOn("Pastel*Palettes", "cool");
+        filterOn("Pastel Palettes", "cool");
         break;
       case "pp powerful":
-        filterOn("Pastel*Palettes", "powerful");
+        filterOn("Pastel Palettes", "powerful");
         break;
       case "pp happy":
-        filterOn("Pastel*Palettes", "happy");
+        filterOn("Pastel Palettes", "happy");
         break;
       case "pp pure":
-        filterOn("Pastel*Palettes", "pure");
+        filterOn("Pastel Palettes", "pure");
         break;
       case "hhw cool":
         filterOn("Hello, Happy World!", "cool");
@@ -122,7 +122,7 @@ class _State extends State<CardPageContent>{
         filterOn("Roselia", "");
         break;
       case "pp ":
-        filterOn("Pastel*Palettes", "");
+        filterOn("Pastel Palettes", "");
         break;
       case " powerful":
         filterOn("", "powerful");

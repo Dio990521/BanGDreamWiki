@@ -9,6 +9,7 @@ class _CardFilterDialog extends State<CardFilterDialog> {
 
   int group = 0;
   int group2 = 0;
+  int group3 = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -232,32 +233,127 @@ class _CardFilterDialog extends State<CardFilterDialog> {
             ],
           ),
           Row(
+            children: <Widget>[
+              Text(
+                "    稀有度  ",
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent,),
+                overflow: TextOverflow.visible,
+              ),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              )
+            ],
+          ),
+          Wrap(
+            children: <Widget>[
+              Padding(
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: RotationTransition(
+                      turns: AlwaysStoppedAnimation(270 / 360),
+                      child: Image.asset("assets/images/rarity/1.png")
+                  ),
+                ),
+                padding: EdgeInsets.only(left: 28,top: 15,right: 8),
+              ),
+
+              Radio(
+                value: 1,
+                groupValue: group3,
+                onChanged: (T) {
+                  print(T);
+                  setState(() {
+                    group3 = T;
+                  });
+                },
+              ),
+              Padding(
+                child: Container(
+                  width: 38,
+                  height: 38,
+                  child: RotationTransition(
+                      turns: AlwaysStoppedAnimation(270 / 360),
+                      child: Image.asset("assets/images/rarity/2.png")
+                  ),
+                ),
+                padding: EdgeInsets.only(left: 8,top: 5,right: 5),
+              ),
+              Radio(
+                value: 2,
+                groupValue: group3,
+                onChanged: (T) {
+                  print(T);
+                  setState(() {
+                    group3 = T;
+                  });
+                },
+              ),
+              Padding(
+                child: Container(
+                  width: 50,
+                  height: 45,
+                  child: RotationTransition(
+                      turns: AlwaysStoppedAnimation(270 / 360),
+                      child: Image.asset("assets/images/rarity/3.png")
+                  ),
+                ),
+                padding: EdgeInsets.only(left: 0,top: 2,right: 0),
+              ),
+              Radio(
+                value: 3,
+                groupValue: group3,
+                onChanged: (T) {
+                  print(T);
+                  setState(() {
+                    group3 = T;
+                  });
+                },
+              ),
+              Padding(
+                child: Container(
+                  width: 40,
+                  height: 45,
+                  child: RotationTransition(
+                      turns: AlwaysStoppedAnimation(270 / 360),
+                      child: Image.asset("assets/images/rarity/4.png")
+                  ),
+                ),
+                padding: EdgeInsets.only(left: 16,top: 0),
+              ),
+              Radio(
+                value: 4,
+                groupValue: group3,
+                onChanged: (T) {
+                  print(T);
+                  setState(() {
+                    group3 = T;
+                  });
+                },
+              ),
+            ],
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SimpleDialogOption(
-                child: Text(
-                  "< 确定 >",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                child: Icon(Icons.check_circle,color: Colors.blueAccent,),
                 onPressed: () {
                   String options = bandOption(group);
-                  options = options +  " " + attributeOption(group2);
+                  options = options +  " " + 
+                      attributeOption(group2) + rarityOption(group3);
+                  print(options);
                   Navigator.pop(context, options);
                 },
               ),
               SimpleDialogOption(
-                child: Text(
-                  "< 重置 >",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent,
-                  ),
-                ),
+                child: Icon(Icons.cancel,color: Colors.blueAccent,),
                 onPressed: () {
                   Navigator.pop(context, "reset");
                 },
@@ -273,15 +369,15 @@ class _CardFilterDialog extends State<CardFilterDialog> {
       case 0:
         return "";
       case 1:
-        return "ppp";
+        return "Poppin'Party";
       case 2:
-        return "rsl";
+        return "Roselia";
       case 3:
-        return "pp";
+        return "Pastel Palettes";
       case 4:
-        return "afg";
+        return "Afterglow";
       default:
-        return "hhw";
+        return "Hello, Happy World!";
     }
   }
 
@@ -297,6 +393,21 @@ class _CardFilterDialog extends State<CardFilterDialog> {
         return "pure";
       default:
         return "happy";
+    }
+  }
+
+  String rarityOption(int group3) {
+    switch (group3){
+      case 0:
+        return "";
+      case 1:
+        return "1";
+      case 2:
+        return "2";
+      case 3:
+        return "3";
+      default:
+        return "4";
     }
   }
 }

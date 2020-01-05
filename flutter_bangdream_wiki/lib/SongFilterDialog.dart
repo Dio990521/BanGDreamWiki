@@ -185,14 +185,7 @@ class _SongFilterDialog extends State<SongFilterDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           SimpleDialogOption(
-            child: Text(
-              "< 确定 >",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
-              ),
-              textAlign: TextAlign.center,
-            ),
+            child: Icon(Icons.check_circle,color: Colors.blueAccent,),
             onPressed: () {
               String options = bandOption(group);
               options = options +  " " + typeOption(group2);
@@ -201,14 +194,7 @@ class _SongFilterDialog extends State<SongFilterDialog> {
             },
           ),
           SimpleDialogOption(
-            child: Text(
-              "< 重置 >",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
-              ),
-            ),
+            child: Icon(Icons.cancel,color: Colors.blueAccent,),
             onPressed: () {
               Navigator.pop(context, "reset");
             },

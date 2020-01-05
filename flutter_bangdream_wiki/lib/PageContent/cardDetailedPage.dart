@@ -123,13 +123,6 @@ class _State extends State<CardDetailedPage>{
                   title: Text("技能",style: TextStyle(fontWeight: FontWeight.bold),),
                   trailing: Text(widget.card.skill, style: TextStyle(fontSize: 15),),
                 ),
-                Divider(),
-                ListTile(
-                  title: Text("技能"),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                ),
-
-
               ],
             ),
           )

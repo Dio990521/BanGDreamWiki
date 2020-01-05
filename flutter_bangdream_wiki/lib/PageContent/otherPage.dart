@@ -18,7 +18,7 @@ class _State extends State<OtherPageContent>{
       child: ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          itemExtent: 180,
+          itemExtent: 150,
           itemCount: others.length,
           itemBuilder: (BuildContext context, int index) {
             return Card(
@@ -26,7 +26,7 @@ class _State extends State<OtherPageContent>{
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: Image.network(others[index]),
+                    child: Text("漫画鉴赏",style: TextStyle(fontSize: 50),),
                   )
 
                 ],

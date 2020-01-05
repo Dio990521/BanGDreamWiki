@@ -11,6 +11,7 @@ class Event {
   String startDate;
   String endDate;
   String imageURL;
+  String gachaURL;
 
   Event.fromMap(DocumentSnapshot map){
 
@@ -22,6 +23,7 @@ class Event {
     this.startDate = map["startDate"];
     this.endDate = map["endDate"];
     this.imageURL = map["imageURL"];
+    this.gachaURL = map["gachaURL"];
 
   }
 

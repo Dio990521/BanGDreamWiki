@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../ClassFiles/Card.dart';
-import '../cardFilterDialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../ClassFiles/Event.dart';

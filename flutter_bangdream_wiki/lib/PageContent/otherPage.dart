@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bangdream_wiki/PageContent/gachaPage.dart';
+import 'comicPage.dart';
 
 class OtherPageContent extends StatefulWidget {
 
@@ -15,24 +17,35 @@ class _State extends State<OtherPageContent>{
     // TODO: implement build
     return Padding(
       padding: EdgeInsets.all(10),
-      child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemExtent: 150,
-          itemCount: others.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text("漫画鉴赏",style: TextStyle(fontSize: 50),),
-                  )
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            trailing: Icon(Icons.arrow_forward_ios),
+            leading: Text("漫画鉴赏"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ComicPageContent(),
+                ),
+              );
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Text("抽卡模拟"),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GachaPageContent(),
+                ),
+              );
+            },
+          )
 
-                ],
-              ),
-            );
-          }
+        ],
       ),
     );
   }

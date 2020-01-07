@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CardDetailedPage extends StatefulWidget {
 
@@ -123,6 +124,12 @@ class _State extends State<CardDetailedPage>{
                   title: Text("技能",style: TextStyle(fontWeight: FontWeight.bold),),
                   trailing: Text(widget.card.skill, style: TextStyle(fontSize: 15),),
                 ),
+                Divider(),
+                ListTile(
+                  title: Text("活动",style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+                CardEvent(widget.card)
+
               ],
             ),
           )
@@ -157,6 +164,38 @@ class _State extends State<CardDetailedPage>{
           placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
           errorWidget: (context, url, error) => Icon(Icons.error)
         ),
+      ),
+    );
+  }
+
+}
+
+class CardEvent extends StatelessWidget{
+
+  final CharacterCard card;
+  CardEvent(this.card);
+
+  @override
+  Widget build(BuildContext context) {
+
+    if (card.event != null) {
+      Firestore.instance
+          .collection("Event")
+          .document(card.event)
+          .get()
+          .then((snapshot) {
+            print(card.event);
+            String imageURL = snapshot.data["imageURL"].toString();
+            return CachedNetworkImage(
+              imageUrl: imageURL,
+              fit: BoxFit.fill,
+            );
+          });
+    }
+    return Padding(
+      padding: EdgeInsets.only(bottom: 30),
+      child: Center(
+        child: Text("无活动信息"),
       ),
     );
   }

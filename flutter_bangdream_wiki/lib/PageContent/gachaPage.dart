@@ -22,31 +22,23 @@ class _State extends State<GachaPageContent>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("抽卡结果"),
+        title: Text("冲冲冲！"),
       ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            StreamBuilder(
-              stream: Firestore.instance.collection("Card").snapshots(),
-              builder: (context, snapshot) {
+      body: Column(
+        children: <Widget>[
+          StreamBuilder(
+            stream: Firestore.instance.collection("Card").snapshots(),
+            builder: (context, snapshot) {
 
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return Center(child: CircularProgressIndicator());
-                  default:
-                    cards = snapshot.data.documents.map((DocumentSnapshot document) {
-                      return new CharacterCard.fromMap(document);
-                    }).toList();
-
-                    cards.shuffle();
-                    for (CharacterCard card in cards) {
-                      if (/*card.rarity != "1" &&*/ randomCardWidgets.length <= 10) {
-                        randomCardWidgets.add(CardGrid(card: card));
-                      }
-                    }
-                    print(randomCardWidgets);
-                    return Center(
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return Center(child: CircularProgressIndicator());
+                default:
+                  cards = snapshot.data.documents.map((DocumentSnapshot document) {
+                    return new CharacterCard.fromMap(document);
+                  }).toList();
+                  print(randomCardWidgets);
+                  return Center(
                       child: GridView.count(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
@@ -55,14 +47,54 @@ class _State extends State<GachaPageContent>{
                         childAspectRatio: 1.0 / 1,
                         children: randomCardWidgets,
                       )
-                    );
-                }
-              },
+                  );
+              }
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                FlatButton(
+                  child: Text("十连抽",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
+                  color: Colors.blueAccent,
+                  onPressed: () {
+                    setState(() {
+                      randomCardWidgets.clear();
+                      cards.shuffle();
+                      for (CharacterCard card in cards) {
+                        if (/*card.rarity != "1" &&*/ randomCardWidgets.length < 10) {
+                          randomCardWidgets.add(CardGrid(card: card));
+                        }
+                      }
+                    });
+                  },
+                ),
+                FlatButton(
+                  child: Text("必三十连抽",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
+                  color: Colors.blueAccent,
+                  onPressed: () {
+                    setState(() {
+                      randomCardWidgets.clear();
+                      cards.shuffle();
+                      for (CharacterCard card in cards) {
+                        if (/*card.rarity != "1" &&*/ randomCardWidgets.length < 10) {
+                          randomCardWidgets.add(CardGrid(card: card));
+                        }
+                      }
+                    });
+
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          )
+
+        ],
+      )
     );
   }
+
 }
 

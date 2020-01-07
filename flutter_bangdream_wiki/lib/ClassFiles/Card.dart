@@ -11,7 +11,6 @@ class CharacterCard {
   String event;
   String imageURL1;
   String imageURL2;
-  String gacha;
   String attributeAssetPath;
   String starAssetPath;
   String rarity;
@@ -28,7 +27,6 @@ class CharacterCard {
     this.skill = map["skill"];
     this.event = map["event"];
     this.imageURL1 = map["imageURL1"];
-    this.gacha = map["gacha"];
     this.rarity = map["rarity"];
     this.imageURL2 = map["imageURL2"];
     this.cardImageURL1 = map["cardImageURL1"];
@@ -73,7 +71,6 @@ class CharacterCard {
     this.skill = skill;
     this.event = event;
     this.imageURL1 = imageURL1;
-    this.gacha = gacha;
     this.rarity = rarity;
     this.imageURL2 = imageURL2;
     switch (rarity) {

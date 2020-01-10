@@ -610,7 +610,7 @@ class _State extends State<CardPageContent>{
           SizedBox(
             height: 5,
           ),
-          Expanded(
+          Flexible(
             child: StreamBuilder(
               stream: Firestore.instance.collection("Card").snapshots(),
               builder: (context, snapshot) {
@@ -790,6 +790,8 @@ class CardTile extends StatelessWidget {
                         card.skill,
                         style: TextStyle(fontSize: 10),
                         textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
 
                       ),
                     )

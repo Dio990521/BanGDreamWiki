@@ -44,7 +44,7 @@ class _State extends State<GachaPageContent>{
                         shrinkWrap: true,
                         crossAxisCount: 5,
                         padding: EdgeInsets.all(10),
-                        childAspectRatio: 1.0 / 1,
+                        childAspectRatio: 0.99 / 1,
                         children: randomCardWidgets,
                       )
                   );
@@ -64,7 +64,7 @@ class _State extends State<GachaPageContent>{
                       randomCardWidgets.clear();
                       cards.shuffle();
                       for (CharacterCard card in cards) {
-                        if (/*card.rarity != "1" &&*/ randomCardWidgets.length < 10) {
+                        if (card.rarity != "1" && randomCardWidgets.length < 10) {
                           randomCardWidgets.add(CardGrid(card: card));
                         }
                       }
@@ -79,7 +79,7 @@ class _State extends State<GachaPageContent>{
                       randomCardWidgets.clear();
                       cards.shuffle();
                       for (CharacterCard card in cards) {
-                        if (/*card.rarity != "1" &&*/ randomCardWidgets.length < 10) {
+                        if (card.rarity != "1" && card.rarity != "2" && randomCardWidgets.length < 10) {
                           randomCardWidgets.add(CardGrid(card: card));
                         }
                       }

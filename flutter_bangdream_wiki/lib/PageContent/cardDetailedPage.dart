@@ -102,7 +102,7 @@ class _State extends State<CardDetailedPage>{
                         width: 20,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(right: 7),
+                        padding: EdgeInsets.only(right: 5),
                         child: Image.asset("assets/images/attribute/" + widget.card.attribute + ".png"),
                       )
                     ],
@@ -158,12 +158,19 @@ class _State extends State<CardDetailedPage>{
       },
       child: Container(
         padding: EdgeInsets.all(5),
-        child: CachedNetworkImage(
-          imageUrl: images[index],
-          fit: BoxFit.fill,
-          placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
-          errorWidget: (context, url, error) => Icon(Icons.error)
-        ),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (_) {
+              return DetailScreen(images[index]);
+            }));
+          },
+          child: CachedNetworkImage(
+              imageUrl: images[index],
+              fit: BoxFit.fill,
+              placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
+              errorWidget: (context, url, error) => Icon(Icons.error)
+          ),
+        )
       ),
     );
   }
@@ -196,6 +203,35 @@ class CardEvent extends StatelessWidget{
       padding: EdgeInsets.only(bottom: 30),
       child: Center(
         child: Text("无活动信息"),
+      ),
+    );
+  }
+}
+
+class DetailScreen extends StatelessWidget {
+
+  final String imageURL;
+  DetailScreen(this.imageURL);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Scaffold(
+        body: Center(
+          child: Hero(
+            transitionOnUserGestures: true,
+            tag: imageURL,
+            child: CachedNetworkImage(
+              imageUrl: imageURL,
+              fit: BoxFit.fill,
+              placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
+              errorWidget: (context, url, error) => Icon(Icons.error)
+            ),
+          ),
+        ),
       ),
     );
   }

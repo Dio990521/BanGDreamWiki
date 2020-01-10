@@ -4,8 +4,13 @@ import 'package:flutter_bangdream_wiki/PageContent/otherPage.dart';
 import 'package:flutter_bangdream_wiki/PageContent/songPage.dart';
 import 'PageContent/cardPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
+    runApp(MyApp());
+  });
+}
 
 class MyApp extends StatefulWidget {
 
@@ -103,21 +108,100 @@ class MyAppState extends State<MyApp> {
 void createRecord() async {
   final databaseReference = Firestore.instance;
 
-  for (int i = 00005; i <= 00010; ++i){
+  for (int i = 00051; i <= 00055; ++i){
     await databaseReference.collection("Card")
         .document(i.toString().padLeft(5, '0'))
         .setData({
       'character': '',
-      'band': '',
+      'band': "Poppin'Party",
       'title' : '',
-      'type' : '',
+      'type' : '无期限',
       'attribute' : '',
       'skill' : '',
-      'event' : '',
+      'event' : null,
       'imageURL1' : '',
-      'gacha' : '',
       'imageURL2' : '',
-      'rarity' : '',
+      'rarity' : '3',
+      'cardImageURL1' : '',
+      'cardImageURL2' : '',
+      'id' : i.toString(),
+
+    });
+  }
+  for (int i = 00056; i <= 00060; ++i){
+    await databaseReference.collection("Card")
+        .document(i.toString().padLeft(5, '0'))
+        .setData({
+      'character': '',
+      'band': "Afterglow",
+      'title' : '',
+      'type' : '无期限',
+      'attribute' : '',
+      'skill' : '',
+      'event' : null,
+      'imageURL1' : '',
+      'imageURL2' : '',
+      'rarity' : '3',
+      'cardImageURL1' : '',
+      'cardImageURL2' : '',
+      'id' : i.toString(),
+
+    });
+  }
+  for (int i = 00061; i <= 00065; ++i){
+    await databaseReference.collection("Card")
+        .document(i.toString().padLeft(5, '0'))
+        .setData({
+      'character': '',
+      'band': "Hello, Happy World!",
+      'title' : '',
+      'type' : '无期限',
+      'attribute' : '',
+      'skill' : '',
+      'event' : null,
+      'imageURL1' : '',
+      'imageURL2' : '',
+      'rarity' : '3',
+      'cardImageURL1' : '',
+      'cardImageURL2' : '',
+      'id' : i.toString(),
+
+    });
+  }
+  for (int i = 00066; i <= 00070; ++i){
+    await databaseReference.collection("Card")
+        .document(i.toString().padLeft(5, '0'))
+        .setData({
+      'character': '',
+      'band': "Pastel Palettes",
+      'title' : '',
+      'type' : '无期限',
+      'attribute' : '',
+      'skill' : '',
+      'event' : null,
+      'imageURL1' : '',
+      'imageURL2' : '',
+      'rarity' : '3',
+      'cardImageURL1' : '',
+      'cardImageURL2' : '',
+      'id' : i.toString(),
+
+    });
+  }
+  for (int i = 00071; i <= 00075; ++i){
+    await databaseReference.collection("Card")
+        .document(i.toString().padLeft(5, '0'))
+        .setData({
+      'character': '',
+      'band': "Roselia",
+      'title' : '',
+      'type' : '无期限',
+      'attribute' : '',
+      'skill' : '',
+      'event' : null,
+      'imageURL1' : '',
+      'imageURL2' : '',
+      'rarity' : '3',
       'cardImageURL1' : '',
       'cardImageURL2' : '',
       'id' : i.toString(),

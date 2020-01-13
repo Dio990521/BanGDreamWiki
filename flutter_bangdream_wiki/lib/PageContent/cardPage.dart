@@ -575,18 +575,18 @@ class _State extends State<CardPageContent>{
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: TextFormField(
                     onChanged: (value) {
                       filterSearchResults(value);
                     },
-                    style: TextStyle(height: 1),
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        labelText: "输入卡牌/角色名",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0)))
-                    ),
+                    style: const TextStyle(height: 1),
+                    decoration: const InputDecoration(
+                          prefixIcon: const Icon(Icons.search),
+                          labelText: "输入角色名",
+                          border: const OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(Radius.circular(20.0)))
+                      ),
                   ),
                 )
               ),
@@ -600,14 +600,14 @@ class _State extends State<CardPageContent>{
                 },
               ),
               IconButton(
-                icon: Icon(Icons.filter_list),
+                icon: const Icon(Icons.filter_list),
                 onPressed: () {
                   cardFilter();
                 }
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Flexible(
@@ -622,6 +622,7 @@ class _State extends State<CardPageContent>{
                     cards = snapshot.data.documents.map((DocumentSnapshot document) {
                       return new CharacterCard.fromMap(document);
                     }).toList();
+
                     _cardsLength = cards.length;
                     if (filterClicked) {
                       _cardsLength = filteredCards.length;
@@ -685,7 +686,7 @@ class CardTile extends StatelessWidget {
         child: Card(
           child: Row(
             children: <Widget>[
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
               Container(
@@ -704,18 +705,17 @@ class CardTile extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  //color: Colors.blueAccent,
-                  padding: EdgeInsets.only(left: 0,right: 0,top: 13),
+                  padding: const EdgeInsets.only(left: 0,right: 0,top: 13),
                   child: Column(
                     children: <Widget>[
                       Text(
                         card.title,
-                        style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                       Text(
                         card.skill,
-                        style: TextStyle(fontSize: 10),
+                        style: const TextStyle(fontSize: 10),
                         textAlign: TextAlign.center,
 
                       ),
@@ -727,9 +727,9 @@ class CardTile extends StatelessWidget {
                 width: 25,
                 //height: 30,
                 child: Image.asset(card.attributeAssetPath),
-                padding: EdgeInsets.only(right: 3),
+                padding: const EdgeInsets.only(right: 3),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15,
               )
             ],
@@ -749,15 +749,15 @@ class CardTile extends StatelessWidget {
       child: Card(
         child: Row(
           children: <Widget>[
-            SizedBox(
-              width: 15,
+            const SizedBox(
+              width: 12,
             ),
             Container(
               width: 25,
               height: 50,
               child: Image.asset(card.starAssetPath),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Container(
@@ -777,18 +777,18 @@ class CardTile extends StatelessWidget {
             Expanded(
               child: Container(
                 //color: Colors.blueAccent,
-                padding: EdgeInsets.only(left: 1,right: 10,top: 13),
+                padding: const EdgeInsets.only(left: 1,right: 10,top: 13),
                 child: Column(
                   children: <Widget>[
                     Text(
                       card.title,
-                      style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                     Expanded(
                       child: Text(
                         card.skill,
-                        style: TextStyle(fontSize: 10),
+                        style: const TextStyle(fontSize: 10),
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -804,9 +804,9 @@ class CardTile extends StatelessWidget {
               width: 25,
               //height: 30,
               child: Image.asset(card.attributeAssetPath),
-              padding: EdgeInsets.only(right: 3),
+              padding: const EdgeInsets.only(right: 3),
             ),
-            SizedBox(
+            const SizedBox(
               width: 15,
             )
           ],

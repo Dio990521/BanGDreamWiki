@@ -20,7 +20,6 @@ class _State extends State<EventDetailedPage>{
   void initState() {
     // TODO: implement initState
     super.initState();
-
     for (String name in widget.event.characters) {
       list.add(Image.asset("assets/images/icons/" + name + ".png",height: 40,width: 45,));
     }
@@ -108,6 +107,9 @@ class _State extends State<EventDetailedPage>{
                   padding: EdgeInsets.all(15),
                   child: CachedNetworkImage(
                     imageUrl: widget.event.gachaURL,
+                      placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    fit: BoxFit.fill,
                   ),
                 )
                 

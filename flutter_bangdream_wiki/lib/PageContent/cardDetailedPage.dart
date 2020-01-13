@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bangdream_wiki/ClassFiles/Event.dart';
+import 'eventDetailedPage.dart';
 
 class CardDetailedPage extends StatefulWidget {
 
@@ -128,7 +130,8 @@ class _State extends State<CardDetailedPage>{
                 ListTile(
                   title: Text("活动",style: TextStyle(fontWeight: FontWeight.bold),),
                 ),
-                CardEvent(widget.card)
+                CardEvent(widget.card.event),
+                //CardEvent(widget.card),
 
               ],
             ),
@@ -179,31 +182,41 @@ class _State extends State<CardDetailedPage>{
 
 class CardEvent extends StatelessWidget{
 
-  final CharacterCard card;
-  CardEvent(this.card);
+  final String event;
+  CardEvent(this.event);
 
   @override
   Widget build(BuildContext context) {
-
-    if (card.event != null) {
-      Firestore.instance
-          .collection("Event")
-          .document(card.event)
-          .get()
-          .then((snapshot) {
-            print(card.event);
-            String imageURL = snapshot.data["imageURL"].toString();
-            return CachedNetworkImage(
-              imageUrl: imageURL,
-              fit: BoxFit.fill,
-            );
-          });
+    if (event == null) {
+      return Padding(
+        padding: EdgeInsets.only(bottom: 30),
+        child: Center(
+          child: Text("无活动信息"),
+        ),
+      );
     }
-    return Padding(
-      padding: EdgeInsets.only(bottom: 30),
-      child: Center(
-        child: Text("无活动信息"),
-      ),
+    return StreamBuilder(
+        stream: Firestore.instance.collection("Event").document(event).snapshots(),
+        builder: (context, snapshot) {
+          Event currentEvent = Event.fromMap(snapshot.data);
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EventDetailedPage(event: currentEvent),
+                ),
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: CachedNetworkImage(
+                imageUrl: currentEvent.imageURL,
+                fit: BoxFit.fill,
+              ),
+            )
+          );
+        }
     );
   }
 }

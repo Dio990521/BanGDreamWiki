@@ -14,7 +14,6 @@ class Event {
   String gachaURL;
 
   Event.fromMap(DocumentSnapshot map){
-
     this.title = map["title"];
     this.attribute = map["attribute"];
     this.type = map["type"];
@@ -24,7 +23,6 @@ class Event {
     this.endDate = map["endDate"];
     this.imageURL = map["imageURL"];
     this.gachaURL = map["gachaURL"];
-
   }
 
   @override

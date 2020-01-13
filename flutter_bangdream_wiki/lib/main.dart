@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
     runApp(MyApp());
   });
@@ -108,106 +109,106 @@ class MyAppState extends State<MyApp> {
 void createRecord() async {
   final databaseReference = Firestore.instance;
 
-  for (int i = 00051; i <= 00055; ++i){
+  for (int i = 000135; i <= 00139; ++i){
     await databaseReference.collection("Card")
         .document(i.toString().padLeft(5, '0'))
         .setData({
       'character': '',
-      'band': "Poppin'Party",
+      'band': "",
       'title' : '',
-      'type' : '无期限',
+      'type' : '',
       'attribute' : '',
       'skill' : '',
-      'event' : null,
+      'event' : '00012',
       'imageURL1' : '',
       'imageURL2' : '',
-      'rarity' : '3',
+      'rarity' : '',
       'cardImageURL1' : '',
       'cardImageURL2' : '',
       'id' : i.toString(),
 
     });
   }
-  for (int i = 00056; i <= 00060; ++i){
-    await databaseReference.collection("Card")
-        .document(i.toString().padLeft(5, '0'))
-        .setData({
-      'character': '',
-      'band': "Afterglow",
-      'title' : '',
-      'type' : '无期限',
-      'attribute' : '',
-      'skill' : '',
-      'event' : null,
-      'imageURL1' : '',
-      'imageURL2' : '',
-      'rarity' : '3',
-      'cardImageURL1' : '',
-      'cardImageURL2' : '',
-      'id' : i.toString(),
-
-    });
-  }
-  for (int i = 00061; i <= 00065; ++i){
-    await databaseReference.collection("Card")
-        .document(i.toString().padLeft(5, '0'))
-        .setData({
-      'character': '',
-      'band': "Hello, Happy World!",
-      'title' : '',
-      'type' : '无期限',
-      'attribute' : '',
-      'skill' : '',
-      'event' : null,
-      'imageURL1' : '',
-      'imageURL2' : '',
-      'rarity' : '3',
-      'cardImageURL1' : '',
-      'cardImageURL2' : '',
-      'id' : i.toString(),
-
-    });
-  }
-  for (int i = 00066; i <= 00070; ++i){
-    await databaseReference.collection("Card")
-        .document(i.toString().padLeft(5, '0'))
-        .setData({
-      'character': '',
-      'band': "Pastel Palettes",
-      'title' : '',
-      'type' : '无期限',
-      'attribute' : '',
-      'skill' : '',
-      'event' : null,
-      'imageURL1' : '',
-      'imageURL2' : '',
-      'rarity' : '3',
-      'cardImageURL1' : '',
-      'cardImageURL2' : '',
-      'id' : i.toString(),
-
-    });
-  }
-  for (int i = 00071; i <= 00075; ++i){
-    await databaseReference.collection("Card")
-        .document(i.toString().padLeft(5, '0'))
-        .setData({
-      'character': '',
-      'band': "Roselia",
-      'title' : '',
-      'type' : '无期限',
-      'attribute' : '',
-      'skill' : '',
-      'event' : null,
-      'imageURL1' : '',
-      'imageURL2' : '',
-      'rarity' : '3',
-      'cardImageURL1' : '',
-      'cardImageURL2' : '',
-      'id' : i.toString(),
-
-    });
-  }
+//  for (int i = 00056; i <= 00060; ++i){
+//    await databaseReference.collection("Card")
+//        .document(i.toString().padLeft(5, '0'))
+//        .setData({
+//      'character': '',
+//      'band': "Afterglow",
+//      'title' : '',
+//      'type' : '无期限',
+//      'attribute' : '',
+//      'skill' : '',
+//      'event' : null,
+//      'imageURL1' : '',
+//      'imageURL2' : '',
+//      'rarity' : '3',
+//      'cardImageURL1' : '',
+//      'cardImageURL2' : '',
+//      'id' : i.toString(),
+//
+//    });
+//  }
+//  for (int i = 00061; i <= 00065; ++i){
+//    await databaseReference.collection("Card")
+//        .document(i.toString().padLeft(5, '0'))
+//        .setData({
+//      'character': '',
+//      'band': "Hello, Happy World!",
+//      'title' : '',
+//      'type' : '无期限',
+//      'attribute' : '',
+//      'skill' : '',
+//      'event' : null,
+//      'imageURL1' : '',
+//      'imageURL2' : '',
+//      'rarity' : '3',
+//      'cardImageURL1' : '',
+//      'cardImageURL2' : '',
+//      'id' : i.toString(),
+//
+//    });
+//  }
+//  for (int i = 00066; i <= 00070; ++i){
+//    await databaseReference.collection("Card")
+//        .document(i.toString().padLeft(5, '0'))
+//        .setData({
+//      'character': '',
+//      'band': "Pastel Palettes",
+//      'title' : '',
+//      'type' : '无期限',
+//      'attribute' : '',
+//      'skill' : '',
+//      'event' : null,
+//      'imageURL1' : '',
+//      'imageURL2' : '',
+//      'rarity' : '3',
+//      'cardImageURL1' : '',
+//      'cardImageURL2' : '',
+//      'id' : i.toString(),
+//
+//    });
+//  }
+//  for (int i = 00071; i <= 00075; ++i){
+//    await databaseReference.collection("Card")
+//        .document(i.toString().padLeft(5, '0'))
+//        .setData({
+//      'character': '',
+//      'band': "Roselia",
+//      'title' : '',
+//      'type' : '无期限',
+//      'attribute' : '',
+//      'skill' : '',
+//      'event' : null,
+//      'imageURL1' : '',
+//      'imageURL2' : '',
+//      'rarity' : '3',
+//      'cardImageURL1' : '',
+//      'cardImageURL2' : '',
+//      'id' : i.toString(),
+//
+//    });
+//  }
 }
 
 void createRecord2() async {
@@ -238,18 +239,19 @@ void createRecord2() async {
 void createRecord3() async {
   final databaseReference = Firestore.instance;
 
-  for (int i = 00001; i <= 00001; ++i){
+  for (int i = 000011; i <= 00015; ++i){
     await databaseReference.collection("Event")
         .document(i.toString().padLeft(5, '0'))
         .setData({
-      'endDate': '',
-      'startDate': '',
+      'endDate': '2019年',
+      'startDate': '2019年',
       'imageURL' : '',
-      'type' : '',
-      'id' : '',
+      'type' : '一般活动',
+      'id' : i.toString(),
       'characters' : [],
       'attribute' : '',
-      'title' : ''
+      'title' : '',
+      'gachaURL' : ''
 
     });
   }

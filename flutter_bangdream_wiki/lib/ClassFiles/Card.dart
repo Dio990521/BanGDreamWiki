@@ -106,6 +106,6 @@ class CharacterCard {
   @override
   String toString() {
     // TODO: implement toString
-    return title + character;
+    return character;
   }
 }

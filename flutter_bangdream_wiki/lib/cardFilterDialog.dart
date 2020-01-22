@@ -343,7 +343,7 @@ class _CardFilterDialog extends State<CardFilterDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SimpleDialogOption(
-                child: Icon(Icons.check_circle,color: Colors.blueAccent,),
+                child: Icon(Icons.check,color: Colors.blueAccent,),
                 onPressed: () {
                   String options = bandOption(group);
                   options = options +  " " + 
@@ -353,7 +353,7 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 },
               ),
               SimpleDialogOption(
-                child: Icon(Icons.cancel,color: Colors.blueAccent,),
+                child: Icon(Icons.refresh,color: Colors.blueAccent,),
                 onPressed: () {
                   Navigator.pop(context, "reset");
                 },

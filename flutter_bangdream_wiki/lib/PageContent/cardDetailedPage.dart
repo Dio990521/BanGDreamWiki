@@ -198,24 +198,29 @@ class CardEvent extends StatelessWidget{
     return StreamBuilder(
         stream: Firestore.instance.collection("Event").document(event).snapshots(),
         builder: (context, snapshot) {
-          Event currentEvent = Event.fromMap(snapshot.data);
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EventDetailedPage(event: currentEvent),
-                ),
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Center(child: CircularProgressIndicator());
+            default:
+              Event currentEvent = Event.fromMap(snapshot.data);
+              return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EventDetailedPage(event: currentEvent),
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: CachedNetworkImage(
+                      imageUrl: currentEvent.imageURL,
+                      fit: BoxFit.fill,
+                    ),
+                  )
               );
-            },
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: CachedNetworkImage(
-                imageUrl: currentEvent.imageURL,
-                fit: BoxFit.fill,
-              ),
-            )
-          );
+          }
         }
     );
   }

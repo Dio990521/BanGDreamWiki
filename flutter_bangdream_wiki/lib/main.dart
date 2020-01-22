@@ -24,10 +24,10 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   int _currentIndex = 0;
-  final List<Widget> _children = [
-    CardPageContent(),
-    SongPageContent(),
-    EventPageContent(),
+  List<Widget> _children = [
+    CardPage(),
+    SongPage(),
+    EventPage(),
     OtherPageContent(),
     Column(
       children: <Widget>[
@@ -109,17 +109,17 @@ class MyAppState extends State<MyApp> {
 void createRecord() async {
   final databaseReference = Firestore.instance;
 
-  for (int i = 000135; i <= 00139; ++i){
+  for (int i = 000140; i <= 00144; ++i){
     await databaseReference.collection("Card")
         .document(i.toString().padLeft(5, '0'))
         .setData({
       'character': '',
-      'band': "",
+      'band': "Pastel Palettes",
       'title' : '',
       'type' : '',
       'attribute' : '',
       'skill' : '',
-      'event' : '00012',
+      'event' : '00013',
       'imageURL1' : '',
       'imageURL2' : '',
       'rarity' : '',
@@ -239,7 +239,7 @@ void createRecord2() async {
 void createRecord3() async {
   final databaseReference = Firestore.instance;
 
-  for (int i = 000011; i <= 00015; ++i){
+  for (int i = 000021; i <= 00025; ++i){
     await databaseReference.collection("Event")
         .document(i.toString().padLeft(5, '0'))
         .setData({

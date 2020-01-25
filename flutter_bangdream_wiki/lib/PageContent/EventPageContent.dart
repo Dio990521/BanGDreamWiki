@@ -100,3 +100,4 @@ class _State extends State<EventPageContent> {
     );
   }
 }
+

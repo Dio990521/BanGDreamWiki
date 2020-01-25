@@ -109,17 +109,17 @@ class MyAppState extends State<MyApp> {
 void createRecord() async {
   final databaseReference = Firestore.instance;
 
-  for (int i = 000140; i <= 00144; ++i){
+  for (int i = 000282; i <= 00286; ++i){
     await databaseReference.collection("Card")
         .document(i.toString().padLeft(5, '0'))
         .setData({
       'character': '',
-      'band': "Pastel Palettes",
+      'band': "",
       'title' : '',
       'type' : '',
       'attribute' : '',
       'skill' : '',
-      'event' : '00013',
+      'event' : '00033',
       'imageURL1' : '',
       'imageURL2' : '',
       'rarity' : '',
@@ -239,12 +239,12 @@ void createRecord2() async {
 void createRecord3() async {
   final databaseReference = Firestore.instance;
 
-  for (int i = 000021; i <= 00025; ++i){
+  for (int i = 000031; i <= 00033; ++i){
     await databaseReference.collection("Event")
         .document(i.toString().padLeft(5, '0'))
         .setData({
-      'endDate': '2019年',
-      'startDate': '2019年',
+      'endDate': '2020年',
+      'startDate': '2020年',
       'imageURL' : '',
       'type' : '一般活动',
       'id' : i.toString(),

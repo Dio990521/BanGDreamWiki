@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Event.dart';
 import 'eventDetailedPage.dart';
+import 'package:flutter_bangdream_wiki/PageContent/ImageDetailScreen.dart';
 
 class CardDetailedPage extends StatefulWidget {
 
@@ -124,7 +125,12 @@ class _State extends State<CardDetailedPage>{
                 Divider(),
                 ListTile(
                   title: Text("技能",style: TextStyle(fontWeight: FontWeight.bold),),
-                  trailing: Text(widget.card.skill, style: TextStyle(fontSize: 15),),
+                  trailing: Text(
+                    widget.card.skill,
+                    style: TextStyle(fontSize: 15),
+                    maxLines: 2,
+                    textAlign: TextAlign.right,
+                  ),
                 ),
                 Divider(),
                 ListTile(
@@ -164,7 +170,7 @@ class _State extends State<CardDetailedPage>{
         child: GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (_) {
-              return DetailScreen(images[index]);
+              return ImageDetailScreen(images[index]);
             }));
           },
           child: CachedNetworkImage(
@@ -222,35 +228,6 @@ class CardEvent extends StatelessWidget{
               );
           }
         }
-    );
-  }
-}
-
-class DetailScreen extends StatelessWidget {
-
-  final String imageURL;
-  DetailScreen(this.imageURL);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Scaffold(
-        body: Center(
-          child: Hero(
-            transitionOnUserGestures: true,
-            tag: imageURL,
-            child: CachedNetworkImage(
-              imageUrl: imageURL,
-              fit: BoxFit.fill,
-              placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
-              errorWidget: (context, url, error) => Icon(Icons.error)
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bangdream_wiki/ClassFiles/BestdoriWebView.dart';
 import 'package:flutter_bangdream_wiki/PageContent/gachaPage.dart';
 import 'comicPage.dart';
 
@@ -20,8 +21,9 @@ class _State extends State<OtherPageContent>{
       child: Column(
         children: <Widget>[
           ListTile(
+            title: Text("漫画鉴赏"),
             trailing: Icon(Icons.arrow_forward_ios),
-            leading: Text("漫画鉴赏"),
+            leading: Icon(Icons.book),
             onTap: () {
               Navigator.push(
                 context,
@@ -33,7 +35,8 @@ class _State extends State<OtherPageContent>{
           ),
           Divider(),
           ListTile(
-            leading: Text("抽卡模拟"),
+            title: Text("抽卡模拟"),
+            leading: Icon(Icons.attach_money),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
               Navigator.push(
@@ -43,7 +46,35 @@ class _State extends State<OtherPageContent>{
                 ),
               );
             },
-          )
+          ),
+          Divider(),
+          ListTile(
+            title: Text("Bestdori网站"),
+            leading: Icon(Icons.web),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BestdoriWebView("https://bestdori.com"),
+                ),
+              );
+            },
+          ),
+          Divider(),
+          ListTile(
+            title: Text("Bandori车站"),
+            leading: Icon(Icons.directions_bus),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BestdoriWebView("https://bandoristation.com"),
+                ),
+              );
+            },
+          ),
 
         ],
       ),

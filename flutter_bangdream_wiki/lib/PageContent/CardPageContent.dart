@@ -5,6 +5,7 @@ import '../cardFilterDialog.dart';
 import 'dart:async';
 import 'package:flutter_bangdream_wiki/ClassFiles/CardTile.dart';
 
+
 class CardPageContent extends StatefulWidget{
 
   final List<dynamic> cards;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Card.dart';
 import 'gachaCardGrid.dart';
+import 'dart:math';
 
 class GachaPageContent extends StatefulWidget {
 
@@ -37,7 +37,6 @@ class _State extends State<GachaPageContent>{
                   cards = snapshot.data.documents.map((DocumentSnapshot document) {
                     return new CharacterCard.fromMap(document);
                   }).toList();
-                  print(randomCardWidgets);
                   return Center(
                       child: GridView.count(
                         scrollDirection: Axis.vertical,
@@ -53,38 +52,58 @@ class _State extends State<GachaPageContent>{
           ),
           Padding(
             padding: EdgeInsets.only(top: 30),
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 FlatButton(
                   child: Text("十连抽",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
                   color: Colors.blueAccent,
                   onPressed: () {
-                    setState(() {
-                      randomCardWidgets.clear();
-                      cards.shuffle();
+                    normalGacha();
+                    int count = 0;
+                    for (CardGrid cardGrid in randomCardWidgets) {
+                      if (int.parse(cardGrid.card.rarity) == 2) {
+                        count++;
+                      }
+                    }
+                    if (count == 10) {
+                      randomCardWidgets.removeLast();
                       for (CharacterCard card in cards) {
-                        if (card.rarity != "1" && card.type != "活动" && randomCardWidgets.length < 10) {
+                        if (card.rarity == "3" && card.type != "活动" && card.type != "联名合作") {
                           randomCardWidgets.add(CardGrid(card: card));
+                          break;
                         }
                       }
+                    }
+                    setState(() {});
+                  },
+                ),
+                FlatButton(
+                  child: Text("机票模拟",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
+                  color: Colors.blueAccent,
+                  onPressed: () {
+                    setState(() {
+                      specialGacha();
+                    });
+
+                  },
+                ),
+                FlatButton(
+                  child: Text("必四星十连",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
+                  color: Colors.blueAccent,
+                  onPressed: () {
+                    setState(() {
+                      rarity4Gacha();
                     });
                   },
                 ),
                 FlatButton(
-                  child: Text("必三十连抽",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
+                  child: Text("大杂烩十连",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
                   color: Colors.blueAccent,
                   onPressed: () {
                     setState(() {
-                      randomCardWidgets.clear();
-                      cards.shuffle();
-                      for (CharacterCard card in cards) {
-                        if (card.rarity != "1" && card.rarity != "2" && card.type != "活动" && randomCardWidgets.length < 10) {
-                          randomCardWidgets.add(CardGrid(card: card));
-                        }
-                      }
+                      mixedGacha();
                     });
-
                   },
                 ),
               ],
@@ -94,6 +113,88 @@ class _State extends State<GachaPageContent>{
         ],
       )
     );
+  }
+
+  void normalGacha() {
+    randomCardWidgets.clear();
+    var rng = Random();
+    for (var i = 0; i < 10; i++) {
+      if (rng.nextInt(100) <= 5) {
+        cards.shuffle();
+        for (CharacterCard card in cards) {
+          if (card.rarity == "4" && card.type != "活动" && card.type != "联名合作" && randomCardWidgets.length < 10) {
+            randomCardWidgets.add(CardGrid(card: card));
+            break;
+          }
+        }
+      }
+      else if (rng.nextInt(100) <= 15) {
+        cards.shuffle();
+        for (CharacterCard card in cards) {
+          if (card.rarity == "3" && card.type != "活动" && card.type != "联名合作" && randomCardWidgets.length < 10) {
+            randomCardWidgets.add(CardGrid(card: card));
+            break;
+          }
+        }
+      }
+      else {
+        cards.shuffle();
+        for (CharacterCard card in cards) {
+          if (card.rarity == "2" && card.type != "活动" && card.type != "联名合作" && randomCardWidgets.length < 10) {
+            randomCardWidgets.add(CardGrid(card: card));
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  void specialGacha() {
+    randomCardWidgets.clear();
+    var rng = Random();
+    for (var i = 0; i < 10; i++) {
+      if (rng.nextInt(100) <= 10) {
+        cards.shuffle();
+        for (CharacterCard card in cards) {
+          if (card.rarity == "4" && card.type != "活动" && card.type != "联名合作" && card.type != "期间限定" && randomCardWidgets.length < 10) {
+            randomCardWidgets.add(CardGrid(card: card));
+            break;
+          }
+        }
+      }
+      else {
+        cards.shuffle();
+        for (CharacterCard card in cards) {
+          if (card.rarity == "3" && card.type != "活动" && card.type != "联名合作" && card.type != "期间限定" && randomCardWidgets.length < 10) {
+            randomCardWidgets.add(CardGrid(card: card));
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  void rarity4Gacha() {
+    randomCardWidgets.clear();
+    for (var i = 0; i < 10; i++) {
+      cards.shuffle();
+      for (CharacterCard card in cards) {
+        if (card.rarity == "4" && card.type != "活动" && card.type != "联名合作" && randomCardWidgets.length < 10) {
+          randomCardWidgets.add(CardGrid(card: card));
+          break;
+        }
+      }
+    }
+  }
+
+  void mixedGacha() {
+    randomCardWidgets.clear();
+    cards.shuffle();
+    var count = 0;
+    while (count < 10) {
+      randomCardWidgets.add(CardGrid(card: cards[count]));
+      count++;
+    }
   }
 
 }

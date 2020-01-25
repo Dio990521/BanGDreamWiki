@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Event.dart';
+import 'package:flutter_bangdream_wiki/PageContent/ImageDetailScreen.dart';
+
 
 class EventDetailedPage extends StatefulWidget {
 
@@ -105,11 +107,18 @@ class _State extends State<EventDetailedPage>{
                 ),
                 Padding(
                   padding: EdgeInsets.all(15),
-                  child: CachedNetworkImage(
-                    imageUrl: widget.event.gachaURL,
-                      placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    fit: BoxFit.fill,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) {
+                        return ImageDetailScreen(widget.event.gachaURL);
+                      }));
+                    },
+                    child: CachedNetworkImage(
+                        imageUrl: widget.event.gachaURL,
+                        fit: BoxFit.fill,
+                        placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
+                        errorWidget: (context, url, error) => Icon(Icons.error)
+                    ),
                   ),
                 )
                 

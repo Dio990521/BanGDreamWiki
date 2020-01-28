@@ -12,7 +12,7 @@ class SongGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         Navigator.push(
           context,
@@ -22,32 +22,38 @@ class SongGrid extends StatelessWidget {
         );
       },
       child: Card(
+        color: Colors.lightBlueAccent,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CachedNetworkImage(
-              fit: BoxFit.fill,
-              imageUrl: song.imageURL,
-            ),
             Expanded(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 10),
-                    Text(
-                      song.name,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ],
-                ),
+              child: Column(
+                children: <Widget>[
+                  CachedNetworkImage(
+                    fit: BoxFit.fill,
+                    imageUrl: song.imageURL,
+                  ),
+                  //SizedBox(height: 5),
+                  Expanded(
+                      child: Center(
+                        child: Text(
+                          song.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      )
+                  )
+
+                ],
               ),
-            )
+            ),
+
           ],
         ),
       ),

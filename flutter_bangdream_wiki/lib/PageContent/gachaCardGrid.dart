@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Card.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bangdream_wiki/PageContent/cardDetailedPage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CardGrid extends StatefulWidget{
@@ -17,15 +18,25 @@ class _State extends State<CardGrid>{
     return Stack(
       children: <Widget>[
         Positioned(
-          child: Card(
-            child: Padding(
-              padding: EdgeInsets.only(top: 3),
-              child: CachedNetworkImage(
-                fit: BoxFit.fill,
-                imageUrl: widget.card.imageURL1,
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CardDetailedPage(card: widget.card),
+                ),
+              );
+            },
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.only(top: 3),
+                child: CachedNetworkImage(
+                  fit: BoxFit.fill,
+                  imageUrl: widget.card.imageURL1,
+                ),
               ),
             ),
-          ),
+          )
         ),
         Positioned(
           right: 5,

@@ -24,93 +24,104 @@ class _State extends State<GachaPageContent>{
       appBar: AppBar(
         title: Text("冲冲冲！"),
       ),
-      body: Column(
-        children: <Widget>[
-          StreamBuilder(
-            stream: Firestore.instance.collection("Card").snapshots(),
-            builder: (context, snapshot) {
+      body: Padding(
+        padding: EdgeInsets.only(top: 30),
+        child: Column(
+          children: <Widget>[
+            StreamBuilder(
+              stream: Firestore.instance.collection("Card").snapshots(),
+              builder: (context, snapshot) {
 
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return Center(child: CircularProgressIndicator());
-                default:
-                  cards = snapshot.data.documents.map((DocumentSnapshot document) {
-                    return new CharacterCard.fromMap(document);
-                  }).toList();
-                  return Center(
-                      child: GridView.count(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        crossAxisCount: 5,
-                        padding: EdgeInsets.all(10),
-                        childAspectRatio: 0.99 / 1,
-                        children: randomCardWidgets,
-                      )
-                  );
-              }
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                FlatButton(
-                  child: Text("十连抽",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
-                  color: Colors.blueAccent,
-                  onPressed: () {
-                    normalGacha();
-                    int count = 0;
-                    for (CardGrid cardGrid in randomCardWidgets) {
-                      if (int.parse(cardGrid.card.rarity) == 2) {
-                        count++;
-                      }
-                    }
-                    if (count == 10) {
-                      randomCardWidgets.removeLast();
-                      for (CharacterCard card in cards) {
-                        if (card.rarity == "3" && card.type != "活动" && card.type != "联名合作") {
-                          randomCardWidgets.add(CardGrid(card: card));
-                          break;
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Center(child: CircularProgressIndicator());
+                  default:
+                    cards = snapshot.data.documents.map((DocumentSnapshot document) {
+                      return new CharacterCard.fromMap(document);
+                    }).toList();
+                    return Container(
+                      padding: EdgeInsets.all(5),
+                      height: 200,
+                      decoration: BoxDecoration(
+                        //color: Colors.lightBlue,
+                        border: Border.all(),
+                      ),
+                        child: Center(
+                          child: GridView.count(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            crossAxisCount: 5,
+                            padding: EdgeInsets.all(10),
+                            childAspectRatio: 0.99 / 1,
+                            children: randomCardWidgets,
+                          ),
+                        )
+                    );
+                }
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  FlatButton(
+                    child: Text("十连抽",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      normalGacha();
+                      int count = 0;
+                      for (CardGrid cardGrid in randomCardWidgets) {
+                        if (int.parse(cardGrid.card.rarity) == 2) {
+                          count++;
                         }
                       }
-                    }
-                    setState(() {});
-                  },
-                ),
-                FlatButton(
-                  child: Text("机票模拟",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
-                  color: Colors.blueAccent,
-                  onPressed: () {
-                    setState(() {
-                      specialGacha();
-                    });
+                      if (count == 10) {
+                        randomCardWidgets.removeLast();
+                        for (CharacterCard card in cards) {
+                          if (card.rarity == "3" && card.type != "活动" && card.type != "联名合作") {
+                            randomCardWidgets.add(CardGrid(card: card));
+                            break;
+                          }
+                        }
+                      }
+                      setState(() {});
+                    },
+                  ),
+                  FlatButton(
+                    child: Text("机票模拟",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      setState(() {
+                        specialGacha();
+                      });
 
-                  },
-                ),
-                FlatButton(
-                  child: Text("必四星十连",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
-                  color: Colors.blueAccent,
-                  onPressed: () {
-                    setState(() {
-                      rarity4Gacha();
-                    });
-                  },
-                ),
-                FlatButton(
-                  child: Text("大杂烩十连",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
-                  color: Colors.blueAccent,
-                  onPressed: () {
-                    setState(() {
-                      mixedGacha();
-                    });
-                  },
-                ),
-              ],
-            ),
-          )
+                    },
+                  ),
+                  FlatButton(
+                    child: Text("必四星十连",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      setState(() {
+                        rarity4Gacha();
+                      });
+                    },
+                  ),
+                  FlatButton(
+                    child: Text("大杂烩十连",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white),),
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      setState(() {
+                        mixedGacha();
+                      });
+                    },
+                  ),
+                ],
+              ),
+            )
 
-        ],
+          ],
+        ),
       )
     );
   }

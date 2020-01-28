@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Song.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bangdream_wiki/ClassFiles/BandIcon.dart';
 
 class SongDetailedPage extends StatefulWidget {
 
@@ -60,10 +60,7 @@ class _State extends State<SongDetailedPage>{
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(widget.song.band, style: TextStyle(fontSize: 15),),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        SvgPicture.asset("assets/images/icons/" + widget.song.band + ".svg",height: 40,)
+                        BandIcon(widget.song)
                       ],
                     )
                 ),
@@ -75,13 +72,14 @@ class _State extends State<SongDetailedPage>{
                 Divider(),
                 ListTile(
                   title: Text("难度",style: TextStyle(fontWeight: FontWeight.bold),),
-                  subtitle: Text("(由Simple到Expert排列)"),
+                  subtitle: Text("(Simple-Expert | Special)"),
                   trailing: Text(
                     widget.song.difficulty1 + "   " +
                         widget.song.difficulty2 + "   " +
                         widget.song.difficulty3 + "   " +
-                        widget.song.difficulty4,
-                    style: TextStyle(fontSize: 15),
+                        widget.song.difficulty4 + "  |  " +
+                        widget.song.difficulty5,
+                    style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                   ),
                 ),
                 Divider(),

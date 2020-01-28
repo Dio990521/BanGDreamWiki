@@ -22,6 +22,7 @@ class _State extends State<SongPageContent> {
   bool arrowClicked = false;
   bool searchFilter = false;
   bool filterClicked = false;
+  int _songsLength = 0;
 
   Future<Null> songFilter() async {
     switch(
@@ -135,7 +136,7 @@ class _State extends State<SongPageContent> {
           searchedListData.add(item);
         }
       });
-      print(searchedListData);
+
       setState(() {});
       return;
     } else {
@@ -147,19 +148,12 @@ class _State extends State<SongPageContent> {
 
   @override
   Widget build(BuildContext context) {
-    songWidgets.clear();
+    _songsLength = widget.songs.length;
     if (filterClicked) {
-      for (Song song in filteredSongs) {
-        songWidgets.add(SongGrid(song));
-      }
-    } else if (searchFilter){
-      for (Song song in searchedListData) {
-        songWidgets.add(SongGrid(song));
-      }
-    } else {
-      for (Song song in widget.songs) {
-        songWidgets.add(SongGrid(song));
-      }
+      _songsLength = filteredSongs.length;
+    }
+    if (searchFilter){
+      _songsLength = searchedListData.length;
     }
     // TODO: implement build
     return Padding(
@@ -197,13 +191,29 @@ class _State extends State<SongPageContent> {
                 height: 5,
               ),
               Expanded(
-                  child: GridView.count(
+                  child: GridView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    crossAxisCount: 3,
                     padding: EdgeInsets.all(10),
-                    childAspectRatio: 6.0 / 9.0,
-                    children: songWidgets,
+                    itemCount: _songsLength,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 4.0,
+                        mainAxisSpacing: 4.0,
+                        childAspectRatio: 0.67
+                    ),
+                    itemBuilder: (BuildContext context, int index){
+                      if (filterClicked) {
+                        Song song = filteredSongs[index];
+                        return SongGrid(song);
+                      }
+                      if (searchFilter){
+                        Song song = searchedListData[index];
+                        return SongGrid(song);
+                      }
+                      Song song = widget.songs[index];
+                      return SongGrid(song);
+                    },
                   )
               )
             ]

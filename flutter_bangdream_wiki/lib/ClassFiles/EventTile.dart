@@ -22,6 +22,7 @@ class EventTile extends StatelessWidget {
         );
       },
       child: Card(
+        color: Colors.lightBlueAccent,
         child: Column(
           children: <Widget>[
             CachedNetworkImage(
@@ -29,9 +30,16 @@ class EventTile extends StatelessWidget {
               fit: BoxFit.fill,
               imageUrl: event.imageURL,
             ),
-            Text(
-              event.title,
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Expanded(
+              child: Center(
+                child: Text(
+                  event.title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                  ),
+                ),
+              ),
             )
           ],
         ),

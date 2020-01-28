@@ -214,7 +214,7 @@ void createRecord() async {
 void createRecord2() async {
   final databaseReference = Firestore.instance;
 
-  for (int i = 00001; i <= 00001; ++i){
+  for (int i = 00101; i <= 000116; ++i){
     await databaseReference.collection("Song")
         .document(i.toString().padLeft(5, '0'))
         .setData({
@@ -226,11 +226,12 @@ void createRecord2() async {
       'composer' : '',
       'arrangement' : '',
       'length' : '',
-      'id' : '',
+      'id' : i.toString(),
       'difficulty1' : '',
       'difficulty2' : '',
       'difficulty3' : '',
       'difficulty4' : '',
+      'difficulty5' : '',
 
     });
   }

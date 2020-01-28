@@ -14,6 +14,7 @@ class Song {
   String difficulty2;
   String difficulty3;
   String difficulty4;
+  String difficulty5;
   int id;
 
   Song.fromMap(DocumentSnapshot map){
@@ -30,6 +31,7 @@ class Song {
     this.difficulty2 = map["difficulty2"];
     this.difficulty3 = map["difficulty3"];
     this.difficulty4 = map["difficulty4"];
+    this.difficulty5 = map["difficulty5"];
 
   }
 

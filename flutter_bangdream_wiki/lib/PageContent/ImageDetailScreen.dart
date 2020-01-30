@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+/// if click on image, detailed screen shows up
 class ImageDetailScreen extends StatelessWidget {
 
   final String imageURL;
-  ImageDetailScreen(this.imageURL);
+
+  ImageDetailScreen({Key key, @required this.imageURL}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

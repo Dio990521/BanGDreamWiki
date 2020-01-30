@@ -1,10 +1,10 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/PageContent/CardPageContent.dart';
 import '../ClassFiles/Card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// CardPage gets all cards from firestore
 class CardPage extends StatelessWidget {
 
   @override

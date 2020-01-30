@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Comic.dart';
-import 'comicDetailedPage.dart';
+import 'package:flutter_bangdream_wiki/ClassFiles/ComicGrid.dart';
 
+/// show all comics
 class ComicPageContent extends StatefulWidget {
 
   @override
@@ -17,7 +17,6 @@ class _State extends State<ComicPageContent>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         appBar: AppBar(
           title: Text("漫画列表",style: TextStyle(fontWeight: FontWeight.bold),),
@@ -35,7 +34,7 @@ class _State extends State<ComicPageContent>{
               }
               comicWidgets.clear();
               for (Comic comic in comics) {
-                comicWidgets.add(ComicGrid(comic));
+                comicWidgets.add(ComicGrid(comic: comic));
               }
               return GridView.count(
                 scrollDirection: Axis.vertical,
@@ -46,36 +45,6 @@ class _State extends State<ComicPageContent>{
                 children: comicWidgets,
               );
             }),
-    );
-  }
-
-}
-class ComicGrid extends StatelessWidget{
-
-  final Comic comic;
-  ComicGrid(this.comic);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ComicDetailedPage(comic: comic),
-          ),
-        );
-      },
-      child: Card(
-        child: Padding(
-          padding: EdgeInsets.only(top: 3),
-          child: CachedNetworkImage(
-            fit: BoxFit.fill,
-            imageUrl: comic.imageURL1,
-          ),
-        )
-      ),
     );
   }
 }

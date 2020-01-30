@@ -3,15 +3,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bangdream_wiki/PageContent/songDetailedPage.dart';
 import 'Song.dart';
 
+/// SongGrid layout class for GridView
 class SongGrid extends StatelessWidget {
 
   final Song song;
 
-  SongGrid(this.song);
+  SongGrid({Key key, @required this.song}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -49,15 +49,12 @@ class SongGrid extends StatelessWidget {
                         ),
                       )
                   )
-
                 ],
               ),
             ),
-
           ],
         ),
       ),
     );
   }
-
 }

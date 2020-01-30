@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/PageContent/cardDetailedPage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+/// CardTile layout class, built for ListView
 class CardTile extends StatelessWidget {
   final CharacterCard card;
 
-  CardTile(this.card);
+  CardTile({Key key, @required this.card}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
+    /// if the card is low rarity (only contains one card image)
     if (card.rarity == "1" || card.rarity == "2") {
       return InkWell(
         onTap: () {
@@ -75,6 +77,8 @@ class CardTile extends StatelessWidget {
         ),
       );
     }
+
+    /// high rarity cards have 2 card images to show
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -130,10 +134,8 @@ class CardTile extends StatelessWidget {
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-
                       ),
                     )
-
                   ],
                 ),
               ),

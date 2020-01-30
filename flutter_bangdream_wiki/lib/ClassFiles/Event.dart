@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
+/// Event class
+/// store all data here
 class Event {
 
   String title;
@@ -13,6 +14,7 @@ class Event {
   String imageURL;
   String gachaURL;
 
+  /// special constructor for firestore only
   Event.fromMap(DocumentSnapshot map){
     this.title = map["title"];
     this.attribute = map["attribute"];
@@ -27,7 +29,6 @@ class Event {
 
   @override
   String toString() {
-    // TODO: implement toString
     return title;
   }
 

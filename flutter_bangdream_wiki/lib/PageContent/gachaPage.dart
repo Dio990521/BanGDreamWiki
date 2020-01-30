@@ -4,6 +4,7 @@ import 'package:flutter_bangdream_wiki/ClassFiles/Card.dart';
 import 'gachaCardGrid.dart';
 import 'dart:math';
 
+/// build gacha page here
 class GachaPageContent extends StatefulWidget {
 
   @override
@@ -18,8 +19,6 @@ class _State extends State<GachaPageContent>{
   @override
   Widget build(BuildContext context) {
 
-
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text("冲冲冲！"),
@@ -31,7 +30,6 @@ class _State extends State<GachaPageContent>{
             StreamBuilder(
               stream: Firestore.instance.collection("Card").snapshots(),
               builder: (context, snapshot) {
-
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
                     return Center(child: CircularProgressIndicator());
@@ -71,7 +69,7 @@ class _State extends State<GachaPageContent>{
                     onPressed: () {
                       normalGacha();
                       int count = 0;
-                      for (CardGrid cardGrid in randomCardWidgets) {
+                      for (GachaCardGrid cardGrid in randomCardWidgets) {
                         if (int.parse(cardGrid.card.rarity) == 2) {
                           count++;
                         }
@@ -80,7 +78,7 @@ class _State extends State<GachaPageContent>{
                         randomCardWidgets.removeLast();
                         for (CharacterCard card in cards) {
                           if (card.rarity == "3" && card.type != "活动" && card.type != "联名合作") {
-                            randomCardWidgets.add(CardGrid(card: card));
+                            randomCardWidgets.add(GachaCardGrid(card: card));
                             break;
                           }
                         }
@@ -126,6 +124,7 @@ class _State extends State<GachaPageContent>{
     );
   }
 
+  /// several gacha probability functions
   void normalGacha() {
     randomCardWidgets.clear();
     var rng = Random();
@@ -134,7 +133,7 @@ class _State extends State<GachaPageContent>{
         cards.shuffle();
         for (CharacterCard card in cards) {
           if (card.rarity == "4" && card.type != "活动" && card.type != "联名合作" && randomCardWidgets.length < 10) {
-            randomCardWidgets.add(CardGrid(card: card));
+            randomCardWidgets.add(GachaCardGrid(card: card));
             break;
           }
         }
@@ -143,7 +142,7 @@ class _State extends State<GachaPageContent>{
         cards.shuffle();
         for (CharacterCard card in cards) {
           if (card.rarity == "3" && card.type != "活动" && card.type != "联名合作" && randomCardWidgets.length < 10) {
-            randomCardWidgets.add(CardGrid(card: card));
+            randomCardWidgets.add(GachaCardGrid(card: card));
             break;
           }
         }
@@ -152,7 +151,7 @@ class _State extends State<GachaPageContent>{
         cards.shuffle();
         for (CharacterCard card in cards) {
           if (card.rarity == "2" && card.type != "活动" && card.type != "联名合作" && randomCardWidgets.length < 10) {
-            randomCardWidgets.add(CardGrid(card: card));
+            randomCardWidgets.add(GachaCardGrid(card: card));
             break;
           }
         }
@@ -168,7 +167,7 @@ class _State extends State<GachaPageContent>{
         cards.shuffle();
         for (CharacterCard card in cards) {
           if (card.rarity == "4" && card.type != "活动" && card.type != "联名合作" && card.type != "期间限定" && randomCardWidgets.length < 10) {
-            randomCardWidgets.add(CardGrid(card: card));
+            randomCardWidgets.add(GachaCardGrid(card: card));
             break;
           }
         }
@@ -177,7 +176,7 @@ class _State extends State<GachaPageContent>{
         cards.shuffle();
         for (CharacterCard card in cards) {
           if (card.rarity == "3" && card.type != "活动" && card.type != "联名合作" && card.type != "期间限定" && randomCardWidgets.length < 10) {
-            randomCardWidgets.add(CardGrid(card: card));
+            randomCardWidgets.add(GachaCardGrid(card: card));
             break;
           }
         }
@@ -191,7 +190,7 @@ class _State extends State<GachaPageContent>{
       cards.shuffle();
       for (CharacterCard card in cards) {
         if (card.rarity == "4" && card.type != "活动" && card.type != "联名合作" && randomCardWidgets.length < 10) {
-          randomCardWidgets.add(CardGrid(card: card));
+          randomCardWidgets.add(GachaCardGrid(card: card));
           break;
         }
       }
@@ -203,7 +202,7 @@ class _State extends State<GachaPageContent>{
     cards.shuffle();
     var count = 0;
     while (count < 10) {
-      randomCardWidgets.add(CardGrid(card: cards[count]));
+      randomCardWidgets.add(GachaCardGrid(card: cards[count]));
       count++;
     }
   }

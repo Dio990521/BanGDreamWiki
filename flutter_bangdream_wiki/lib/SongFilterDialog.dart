@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// Filter for songs
+/// There are 2 groups you can choose
 class SongFilterDialog extends StatefulWidget {
+
   @override
   _SongFilterDialog createState() => _SongFilterDialog();
+
 }
 
 class _SongFilterDialog extends State<SongFilterDialog> {
@@ -12,16 +16,15 @@ class _SongFilterDialog extends State<SongFilterDialog> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SimpleDialog(
         title: Text(
-        "按类别筛选",
-        style: TextStyle(
-        color: Colors.blueAccent,
-        fontWeight: FontWeight.bold
-    ),
-    ),
-    children: <Widget>[
+          "按类别筛选",
+          style: TextStyle(
+          color: Colors.blueAccent,
+          fontWeight: FontWeight.bold
+        ),
+      ),
+      children: <Widget>[
       Row(
         children: <Widget>[
           Text(
@@ -55,7 +58,6 @@ class _SongFilterDialog extends State<SongFilterDialog> {
             value: 1,
             groupValue: group,
             onChanged: (T) {
-              print(T);
               setState(() {
                 group = T;
               });
@@ -73,7 +75,6 @@ class _SongFilterDialog extends State<SongFilterDialog> {
             value: 2,
             groupValue: group,
             onChanged: (T) {
-              print(T);
               setState(() {
                 group = T;
               });
@@ -91,7 +92,6 @@ class _SongFilterDialog extends State<SongFilterDialog> {
             value: 3,
             groupValue: group,
             onChanged: (T) {
-              print(T);
               setState(() {
                 group = T;
               });
@@ -109,7 +109,6 @@ class _SongFilterDialog extends State<SongFilterDialog> {
             value: 4,
             groupValue: group,
             onChanged: (T) {
-              print(T);
               setState(() {
                 group = T;
               });
@@ -127,7 +126,6 @@ class _SongFilterDialog extends State<SongFilterDialog> {
             value: 5,
             groupValue: group,
             onChanged: (T) {
-              print(T);
               setState(() {
                 group = T;
               });
@@ -173,7 +171,6 @@ class _SongFilterDialog extends State<SongFilterDialog> {
             value: 2,
             groupValue: group2,
             onChanged: (T) {
-              print(T);
               setState(() {
                 group2 = T;
               });
@@ -189,7 +186,6 @@ class _SongFilterDialog extends State<SongFilterDialog> {
             onPressed: () {
               String options = bandOption(group);
               options = options +  " " + typeOption(group2);
-              print(options);
               Navigator.pop(context, options);
             },
           ),

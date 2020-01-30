@@ -23,7 +23,85 @@ class _State extends State<EventDetailedPage>{
     // TODO: implement initState
     super.initState();
     for (String name in widget.event.characters) {
-      list.add(Image.asset("assets/images/icons/" + name + ".png",height: 40,width: 45,));
+      String path = "";
+      switch (name) {
+        case "上原绯玛丽":
+          path = "assets/charaIcons/symfl.png";
+          break;
+        case "丸山彩":
+          path = "assets/charaIcons/wsc.png";
+          break;
+        case "今井莉莎":
+          path = "assets/charaIcons/jjls.png";
+          break;
+        case "冰川日菜":
+          path = "assets/charaIcons/bcrc.png";
+          break;
+        case "冰川纱夜":
+          path = "assets/charaIcons/bcsy.png";
+          break;
+        case "凑友希那":
+          path = "assets/charaIcons/cyxn.png";
+          break;
+        case "北泽育美":
+          path = "assets/charaIcons/bzym.png";
+          break;
+        case "大和麻弥":
+          path = "assets/charaIcons/dhmm.png";
+          break;
+        case "奥泽美咲":
+          path = "assets/charaIcons/azmx.png";
+          break;
+        case "宇田川亚子":
+          path = "assets/charaIcons/ytcyz.png";
+          break;
+        case "宇田川巴":
+          path = "assets/charaIcons/ytcb.png";
+          break;
+        case "山吹沙绫":
+          path = "assets/charaIcons/scsl.png";
+          break;
+        case "市谷有咲":
+          path = "assets/charaIcons/sgyx.png";
+          break;
+        case "弦卷心":
+          path = "assets/charaIcons/xjx.png";
+          break;
+        case "户山香澄":
+          path = "assets/charaIcons/hsxc.png";
+          break;
+        case "松原花音":
+          path = "assets/charaIcons/syhy.png";
+          break;
+        case "濑田薰":
+          path = "assets/charaIcons/ltx.png";
+          break;
+        case "牛込里美":
+          path = "assets/charaIcons/nylm.png";
+          break;
+        case "白金燐子":
+          path = "assets/charaIcons/bjlz.png";
+          break;
+        case "白鹭千圣":
+          path = "assets/charaIcons/blqs.png";
+          break;
+        case "美竹兰":
+          path = "assets/charaIcons/mzl.png";
+          break;
+        case "羽泽鸫":
+          path = "assets/charaIcons/yzd.png";
+          break;
+        case "花园多惠":
+          path = "assets/charaIcons/hydh.png";
+          break;
+        case "若宫伊芙":
+          path = "assets/charaIcons/rgyf.png";
+          break;
+        case "青叶摩卡":
+          path = "assets/charaIcons/qymk.png";
+          break;
+      }
+      list.add(Image(image: AssetImage(path),height: 40,width: 45,));
     }
   }
 
@@ -70,7 +148,7 @@ class _State extends State<EventDetailedPage>{
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Image.asset("assets/images/attribute/" + widget.event.attribute + ".png",height: 40,),
+                        Image(image: AssetImage("assets/images/attribute/" + widget.event.attribute + ".png",),height: 40),
                         SizedBox(
                           width: 5,
                         ),
@@ -110,7 +188,7 @@ class _State extends State<EventDetailedPage>{
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return ImageDetailScreen(widget.event.gachaURL);
+                        return ImageDetailScreen(imageURL: widget.event.gachaURL,);
                       }));
                     },
                     child: CachedNetworkImage(

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Song.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/BandIcon.dart';
 
+/// if click on SongGrid on SongPage, then detailed page shows up
 class SongDetailedPage extends StatefulWidget {
 
-  // Declare a field that holds the card.
   final Song song;
   SongDetailedPage({Key key, @required this.song}) : super(key: key);
 
@@ -15,10 +15,8 @@ class SongDetailedPage extends StatefulWidget {
 
 class _State extends State<SongDetailedPage>{
 
-
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text("歌曲详情",style: TextStyle(fontWeight: FontWeight.bold),),
@@ -60,7 +58,7 @@ class _State extends State<SongDetailedPage>{
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(widget.song.band, style: TextStyle(fontSize: 15),),
-                        BandIcon(widget.song)
+                        BandIcon(song: widget.song,)
                       ],
                     )
                 ),
@@ -102,12 +100,9 @@ class _State extends State<SongDetailedPage>{
                   title: Text("编曲",style: TextStyle(fontWeight: FontWeight.bold),),
                   trailing: Text(widget.song.arrangement, style: TextStyle(fontSize: 15),),
                 ),
-                Divider(),
-
               ],
             ),
           )
-
         ],
       ),
     );

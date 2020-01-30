@@ -1,16 +1,13 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_bangdream_wiki/ClassFiles/Event.dart';
-import 'eventDetailedPage.dart';
 import 'package:flutter_bangdream_wiki/PageContent/ImageDetailScreen.dart';
+import 'package:flutter_bangdream_wiki/ClassFiles/CardEvent.dart';
 
+/// When click on one CardTile on CardPage, the detail of that card shows
 class CardDetailedPage extends StatefulWidget {
 
-  // Declare a field that holds the card.
   final CharacterCard card;
   CardDetailedPage({Key key, @required this.card}) : super(key: key);
 
@@ -19,15 +16,15 @@ class CardDetailedPage extends StatefulWidget {
 }
 
 class _State extends State<CardDetailedPage>{
+
   PageController controller = PageController(
       initialPage: 0, viewportFraction: 0.8);
-  // In the constructor, require a card.
 
   List<String> images = List<String> ();
 
+  /// get images URL first before building page slide widget
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     images.add(widget.card.cardImageURL1);
     if(widget.card.cardImageURL2 != null) {
@@ -37,13 +34,13 @@ class _State extends State<CardDetailedPage>{
 
   @override
   Widget build(BuildContext context) {
-    // Use the Todo to create the UI.
     return Scaffold(
       appBar: AppBar(
         title: Text("角色卡详情",style: TextStyle(fontWeight: FontWeight.bold),),
       ),
       body: Column(
         children: <Widget>[
+          /// slide page to view images
           Container(
             height: 250,
             child: PageView.builder(
@@ -76,7 +73,7 @@ class _State extends State<CardDetailedPage>{
                       SizedBox(
                         width: 15,
                       ),
-                      Image.asset("assets/images/icons/" + widget.card.character + ".png",height: 40,)
+                      Image(image: AssetImage(widget.card.charaIconPath),height: 40,)
                     ],
                   )
                 ),
@@ -90,7 +87,7 @@ class _State extends State<CardDetailedPage>{
                       SizedBox(
                         width: 15,
                       ),
-                      SvgPicture.asset("assets/images/icons/" + widget.card.band + ".svg",height: 40,)
+                      SvgPicture.asset(widget.card.bandIconPath,height: 40,)
                     ],
                   )
                 ),
@@ -106,7 +103,7 @@ class _State extends State<CardDetailedPage>{
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 5),
-                        child: Image.asset("assets/images/attribute/" + widget.card.attribute + ".png"),
+                        child: Image(image: AssetImage("assets/images/attribute/" + widget.card.attribute + ".png")),
                       )
                     ],
                   )
@@ -118,7 +115,7 @@ class _State extends State<CardDetailedPage>{
                     width: 70,
                     child: RotationTransition(
                         turns: AlwaysStoppedAnimation(270 / 360),
-                        child: Image.asset("assets/images/rarity/" + widget.card.rarity + ".png")
+                        child: Image(image: AssetImage("assets/images/rarity/" + widget.card.rarity + ".png"))
                     ),
                   )
                 ),
@@ -136,18 +133,17 @@ class _State extends State<CardDetailedPage>{
                 ListTile(
                   title: Text("活动",style: TextStyle(fontWeight: FontWeight.bold),),
                 ),
-                CardEvent(widget.card.event),
+                CardEvent(event: widget.card.event,),
                 //CardEvent(widget.card),
-
               ],
             ),
           )
-
         ],
       ),
     );
   }
 
+  /// slide image
   imageSlider(int index) {
     return AnimatedBuilder(
       animation: controller,
@@ -170,7 +166,7 @@ class _State extends State<CardDetailedPage>{
         child: GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (_) {
-              return ImageDetailScreen(images[index]);
+              return ImageDetailScreen(imageURL: images[index],);
             }));
           },
           child: CachedNetworkImage(
@@ -183,51 +179,6 @@ class _State extends State<CardDetailedPage>{
       ),
     );
   }
-
 }
 
-class CardEvent extends StatelessWidget{
 
-  final String event;
-  CardEvent(this.event);
-
-  @override
-  Widget build(BuildContext context) {
-    if (event == null) {
-      return Padding(
-        padding: EdgeInsets.only(bottom: 30),
-        child: Center(
-          child: Text("无活动信息"),
-        ),
-      );
-    }
-    return StreamBuilder(
-        stream: Firestore.instance.collection("Event").document(event).snapshots(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return Center(child: CircularProgressIndicator());
-            default:
-              Event currentEvent = Event.fromMap(snapshot.data);
-              return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EventDetailedPage(event: currentEvent),
-                      ),
-                    );
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: CachedNetworkImage(
-                      imageUrl: currentEvent.imageURL,
-                      fit: BoxFit.fill,
-                    ),
-                  )
-              );
-          }
-        }
-    );
-  }
-}

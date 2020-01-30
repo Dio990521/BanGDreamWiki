@@ -3,15 +3,15 @@ import 'package:flutter_bangdream_wiki/PageContent/eventDetailedPage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'Event.dart';
 
+/// EVentTile layout class for ListView
 class EventTile extends StatelessWidget {
 
   final Event event;
 
-  EventTile(this.event);
+  EventTile({Key key, @required this.event}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GestureDetector(
       onTap: () {
         Navigator.push(

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// Filter for cards
+/// There are 3 groups you can choose
 class CardFilterDialog extends StatefulWidget {
+
   @override
   _CardFilterDialog createState() => _CardFilterDialog();
+
 }
 
 class _CardFilterDialog extends State<CardFilterDialog> {
@@ -13,7 +17,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SimpleDialog(
         title: Text(
           "按类别筛选",
@@ -56,7 +59,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 1,
                 groupValue: group,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group = T;
                   });
@@ -74,7 +76,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 2,
                 groupValue: group,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group = T;
                   });
@@ -92,7 +93,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 3,
                 groupValue: group,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group = T;
                   });
@@ -110,7 +110,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 4,
                 groupValue: group,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group = T;
                   });
@@ -128,7 +127,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 5,
                 groupValue: group,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group = T;
                   });
@@ -170,7 +168,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 1,
                 groupValue: group2,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group2 = T;
                   });
@@ -188,7 +185,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 2,
                 groupValue: group2,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group2 = T;
                   });
@@ -206,7 +202,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 3,
                 groupValue: group2,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group2 = T;
                   });
@@ -224,7 +219,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 4,
                 groupValue: group2,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group2 = T;
                   });
@@ -268,7 +262,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 1,
                 groupValue: group3,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group3 = T;
                   });
@@ -289,7 +282,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 2,
                 groupValue: group3,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group3 = T;
                   });
@@ -310,7 +302,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 3,
                 groupValue: group3,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group3 = T;
                   });
@@ -331,7 +322,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                 value: 4,
                 groupValue: group3,
                 onChanged: (T) {
-                  print(T);
                   setState(() {
                     group3 = T;
                   });
@@ -348,7 +338,6 @@ class _CardFilterDialog extends State<CardFilterDialog> {
                   String options = bandOption(group);
                   options = options +  " " + 
                       attributeOption(group2) + rarityOption(group3);
-                  print(options);
                   Navigator.pop(context, options);
                 },
               ),

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// Song class
+/// store all data here
 class Song {
 
   String name;
@@ -17,6 +19,7 @@ class Song {
   String difficulty5;
   int id;
 
+  /// special constructor for firestore only
   Song.fromMap(DocumentSnapshot map){
     this.name = map["name"];
     this.imageURL = map["imageURL"];
@@ -37,7 +40,6 @@ class Song {
 
   @override
   String toString() {
-    // TODO: implement toString
     return name;
   }
 

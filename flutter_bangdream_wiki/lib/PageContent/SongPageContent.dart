@@ -3,11 +3,11 @@ import 'package:flutter_bangdream_wiki/SongFilterDialog.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Song.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/SongGrid.dart';
 
+/// all songs show in GridView.builder
 class SongPageContent extends StatefulWidget {
 
   final List<dynamic> songs;
   SongPageContent({Key key, @required this.songs}) : super(key: key);
-
 
   @override
   _State createState() => new _State();
@@ -136,7 +136,6 @@ class _State extends State<SongPageContent> {
           searchedListData.add(item);
         }
       });
-
       setState(() {});
       return;
     } else {
@@ -155,7 +154,6 @@ class _State extends State<SongPageContent> {
     if (searchFilter){
       _songsLength = searchedListData.length;
     }
-    // TODO: implement build
     return Padding(
         padding: const EdgeInsets.only(top: 4.0, left: 7.0, right: 7.0),
         child: Column(
@@ -205,14 +203,14 @@ class _State extends State<SongPageContent> {
                     itemBuilder: (BuildContext context, int index){
                       if (filterClicked) {
                         Song song = filteredSongs[index];
-                        return SongGrid(song);
+                        return SongGrid(song: song);
                       }
                       if (searchFilter){
                         Song song = searchedListData[index];
-                        return SongGrid(song);
+                        return SongGrid(song: song);
                       }
                       Song song = widget.songs[index];
-                      return SongGrid(song);
+                      return SongGrid(song: song);
                     },
                   )
               )

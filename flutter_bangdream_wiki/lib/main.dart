@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bangdream_wiki/PageContent/FBPage.dart';
+import 'package:flutter_bangdream_wiki/PageContent/InfoPage.dart';
 import 'package:flutter_bangdream_wiki/PageContent/eventPage.dart';
 import 'package:flutter_bangdream_wiki/PageContent/otherPage.dart';
 import 'package:flutter_bangdream_wiki/PageContent/songPage.dart';
 import 'PageContent/cardPage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
 void main() {
@@ -17,47 +18,32 @@ class MyApp extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return MyAppState();
   }
+
 }
 
+
+/// Build the navigation bar
+/// 4 are available to users
+/// 1(FBPage) is only for updating data on cloud firestore
 class MyAppState extends State<MyApp> {
+
   int _currentIndex = 0;
   List<Widget> _children = [
     CardPage(),
     SongPage(),
     EventPage(),
     OtherPageContent(),
-    Column(
-      children: <Widget>[
-      RaisedButton(
-        child: Text('Create Card'),
-        onPressed: () {
-          createRecord();
-        },),
-        RaisedButton(
-          child: Text("Create Song"),
-          onPressed: (){
-            createRecord2();
-          },
-        ),
-        RaisedButton(
-          child: Text("Create Event"),
-          onPressed: () {
-            createRecord3();
-          },
-        )
-      ],
-    )
-
+    //FBPage()
   ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "BanGDreamWiki",
-      darkTheme: ThemeData(),
+      darkTheme: ThemeData(
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: Text('BanGDreamWiki'),
@@ -89,11 +75,11 @@ class MyAppState extends State<MyApp> {
                 activeIcon: Icon(Icons.dashboard, color: Colors.blueAccent,),
                 title: Text("其他")
             ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                activeIcon: Icon(Icons.person, color: Colors.blueAccent,),
-                title: Text("个人")
-            ),
+//            BottomNavigationBarItem(
+//                icon: Icon(Icons.person),
+//                activeIcon: Icon(Icons.person, color: Colors.blueAccent,),
+//                title: Text("个人")
+//            ),
           ],
           onTap: (int index) {
             setState(() {
@@ -105,156 +91,3 @@ class MyAppState extends State<MyApp> {
     );
   }
 }
-
-void createRecord() async {
-  final databaseReference = Firestore.instance;
-
-  for (int i = 000282; i <= 00286; ++i){
-    await databaseReference.collection("Card")
-        .document(i.toString().padLeft(5, '0'))
-        .setData({
-      'character': '',
-      'band': "",
-      'title' : '',
-      'type' : '',
-      'attribute' : '',
-      'skill' : '',
-      'event' : '00033',
-      'imageURL1' : '',
-      'imageURL2' : '',
-      'rarity' : '',
-      'cardImageURL1' : '',
-      'cardImageURL2' : '',
-      'id' : i.toString(),
-
-    });
-  }
-//  for (int i = 00056; i <= 00060; ++i){
-//    await databaseReference.collection("Card")
-//        .document(i.toString().padLeft(5, '0'))
-//        .setData({
-//      'character': '',
-//      'band': "Afterglow",
-//      'title' : '',
-//      'type' : '无期限',
-//      'attribute' : '',
-//      'skill' : '',
-//      'event' : null,
-//      'imageURL1' : '',
-//      'imageURL2' : '',
-//      'rarity' : '3',
-//      'cardImageURL1' : '',
-//      'cardImageURL2' : '',
-//      'id' : i.toString(),
-//
-//    });
-//  }
-//  for (int i = 00061; i <= 00065; ++i){
-//    await databaseReference.collection("Card")
-//        .document(i.toString().padLeft(5, '0'))
-//        .setData({
-//      'character': '',
-//      'band': "Hello, Happy World!",
-//      'title' : '',
-//      'type' : '无期限',
-//      'attribute' : '',
-//      'skill' : '',
-//      'event' : null,
-//      'imageURL1' : '',
-//      'imageURL2' : '',
-//      'rarity' : '3',
-//      'cardImageURL1' : '',
-//      'cardImageURL2' : '',
-//      'id' : i.toString(),
-//
-//    });
-//  }
-//  for (int i = 00066; i <= 00070; ++i){
-//    await databaseReference.collection("Card")
-//        .document(i.toString().padLeft(5, '0'))
-//        .setData({
-//      'character': '',
-//      'band': "Pastel Palettes",
-//      'title' : '',
-//      'type' : '无期限',
-//      'attribute' : '',
-//      'skill' : '',
-//      'event' : null,
-//      'imageURL1' : '',
-//      'imageURL2' : '',
-//      'rarity' : '3',
-//      'cardImageURL1' : '',
-//      'cardImageURL2' : '',
-//      'id' : i.toString(),
-//
-//    });
-//  }
-//  for (int i = 00071; i <= 00075; ++i){
-//    await databaseReference.collection("Card")
-//        .document(i.toString().padLeft(5, '0'))
-//        .setData({
-//      'character': '',
-//      'band': "Roselia",
-//      'title' : '',
-//      'type' : '无期限',
-//      'attribute' : '',
-//      'skill' : '',
-//      'event' : null,
-//      'imageURL1' : '',
-//      'imageURL2' : '',
-//      'rarity' : '3',
-//      'cardImageURL1' : '',
-//      'cardImageURL2' : '',
-//      'id' : i.toString(),
-//
-//    });
-//  }
-}
-
-void createRecord2() async {
-  final databaseReference = Firestore.instance;
-
-  for (int i = 00101; i <= 000116; ++i){
-    await databaseReference.collection("Song")
-        .document(i.toString().padLeft(5, '0'))
-        .setData({
-      'name': '',
-      'band': '',
-      'imageURL' : '',
-      'type' : '',
-      'lyrics' : '',
-      'composer' : '',
-      'arrangement' : '',
-      'length' : '',
-      'id' : i.toString(),
-      'difficulty1' : '',
-      'difficulty2' : '',
-      'difficulty3' : '',
-      'difficulty4' : '',
-      'difficulty5' : '',
-
-    });
-  }
-}
-
-void createRecord3() async {
-  final databaseReference = Firestore.instance;
-
-  for (int i = 000031; i <= 00033; ++i){
-    await databaseReference.collection("Event")
-        .document(i.toString().padLeft(5, '0'))
-        .setData({
-      'endDate': '2020年',
-      'startDate': '2020年',
-      'imageURL' : '',
-      'type' : '一般活动',
-      'id' : i.toString(),
-      'characters' : [],
-      'attribute' : '',
-      'title' : '',
-      'gachaURL' : ''
-
-    });
-  }
-}
-

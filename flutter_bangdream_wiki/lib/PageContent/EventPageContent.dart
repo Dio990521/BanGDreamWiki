@@ -1,13 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/Event.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/EventTile.dart';
 
-
+/// all events are shown here
 class EventPageContent extends StatefulWidget{
 
   final List<dynamic> events;
   EventPageContent({Key key, @required this.events}) : super(key: key);
-
 
   @override
   _State createState() => new _State();
@@ -49,7 +50,6 @@ class _State extends State<EventPageContent> {
     if (searchFilter) {
       _eventsLength = searchedListData.length;
     }
-    // TODO: implement build
     return Padding(
       padding: const EdgeInsets.only(top: 4.0, left: 7.0, right: 7.0),
       child: Column(
@@ -87,14 +87,13 @@ class _State extends State<EventPageContent> {
                 itemBuilder: (BuildContext context, int index) {
                   if(searchFilter) {
                     Event event = searchedListData[index];
-                    return EventTile(event);
+                    return EventTile(event: event);
                   }
                   Event event = widget.events[index];
-                  return EventTile(event);
+                  return EventTile(event: event);
                 }
             ),
           )
-
         ],
       ),
     );

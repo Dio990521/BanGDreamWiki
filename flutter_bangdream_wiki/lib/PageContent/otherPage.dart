@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bangdream_wiki/ClassFiles/BestdoriWebView.dart';
+import 'package:flutter_bangdream_wiki/PageContent/InfoPage.dart';
 import 'package:flutter_bangdream_wiki/PageContent/gachaPage.dart';
 import 'comicPage.dart';
 
+/// some other small features of this app
 class OtherPageContent extends StatefulWidget {
 
   @override
@@ -11,8 +13,6 @@ class OtherPageContent extends StatefulWidget {
 
 class _State extends State<OtherPageContent>{
 
-  List<dynamic> others = ["https://i1.hdslb.com/bfs/game/de43be8ebc6eb030c04dcc0ce7c1733f7fc011ad.jpg"];
-  
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -56,7 +56,7 @@ class _State extends State<OtherPageContent>{
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BestdoriWebView("https://bestdori.com"),
+                  builder: (context) => BestdoriWebView(webUrl: "https://bestdori.com",),
                 ),
               );
             },
@@ -70,15 +70,27 @@ class _State extends State<OtherPageContent>{
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BestdoriWebView("https://bandoristation.com"),
+                  builder: (context) => BestdoriWebView(webUrl: "https://bandoristation.com",),
                 ),
               );
             },
           ),
-
+          Divider(),
+          ListTile(
+            title: Text("声明"),
+            leading: Icon(Icons.info),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InfoPage(),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
   }
-  
 }

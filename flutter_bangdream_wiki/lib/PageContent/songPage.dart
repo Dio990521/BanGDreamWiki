@@ -4,11 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'SongPageContent.dart';
 import '../ClassFiles/Song.dart';
 
+/// get all songs from firestore
 class SongPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return StreamBuilder(
         stream: Firestore.instance.collection("Song").snapshots(),
         builder: (context, snapshot) {

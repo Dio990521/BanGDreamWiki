@@ -5,7 +5,7 @@ import '../cardFilterDialog.dart';
 import 'dart:async';
 import 'package:flutter_bangdream_wiki/ClassFiles/CardTile.dart';
 
-
+/// Show all cards in a ListView.build
 class CardPageContent extends StatefulWidget{
 
   final List<dynamic> cards;
@@ -624,22 +624,20 @@ class _State extends State<CardPageContent> {
                   itemBuilder: (BuildContext context, int index) {
                     if (filterClicked) {
                       CharacterCard card = filteredCards[index];
-                      return CardTile(card);
+                      return CardTile(card: card);
                     }
                     if (searchFilter){
                       CharacterCard card = searchedListData[index];
-                      return CardTile(card);
+                      return CardTile(card: card);
                     }
                     CharacterCard card = widget.cards[index];
-                    return CardTile(card);
+                    return CardTile(card: card);
                   }
               ),
             )
-
           ],
         ),
       ),
     );
   }
-
 }

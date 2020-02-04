@@ -10,3 +10,7 @@ My flutter app practice
 ![image](https://github.com/Dio990521/BanGDreamWiki/blob/master/gif/gifhome_736x1492_9s.gif)  
 ![image](https://github.com/Dio990521/BanGDreamWiki/blob/master/gif/gifhome_736x1492_10s.gif)  
 ![image](https://github.com/Dio990521/BanGDreamWiki/blob/master/gif/gifhome_736x1492_11s.gif)  
+  
+    
+      
+      videos文件夹有预览视频
